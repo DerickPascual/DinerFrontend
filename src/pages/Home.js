@@ -26,7 +26,7 @@ export default function Home() {
             <Header />
             <div className="hero-container">
                 <h2 className="hero-proposal">For when you and your partner can't decide:</h2>
-                <h2 className="hero-question">"Where do <i>you</i> want to eat?"</h2>
+                <h2 className="hero-question">"Where do <i className="hero-italic">you</i> want to eat?"</h2>
             </div>
             <div className="join-container">
                 <div className="join-box">

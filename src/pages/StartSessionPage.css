@@ -1,0 +1,133 @@
+.start-session-container {
+    display: flex;
+    justify-content: center;
+}
+
+.start-session-box {
+    margin-top: 25px;
+    background-color: #242424;
+    width: fit-content;
+    padding: 12px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.address-prompt,
+.radius-prompt {
+    font-size: 1.5rem;
+}
+
+.address-input {
+    all: unset;
+    width: 250px;
+    height: 30px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.address-input:focus {
+    outline: rgb(0, 122, 255) solid 2px;
+}
+
+.use-location-anchor {
+    color: rgb(10, 132, 255);
+    text-decoration: underline;
+}
+
+.use-location-anchor:hover {
+    cursor: pointer;
+    color: rgb(6, 96, 186);
+}
+
+.radius-prompt {
+    margin: 0px;
+    margin-bottom: -10px;
+}
+
+.radius-description {
+    color: #a4a4a4;
+}
+
+.radius-input-container {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.radius-input-container:focus {
+    outline: red 2px solid;
+}
+
+.radius-input {
+    all: unset;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.radius-input:focus {
+    box-shadow: 0 -2px 0 rgb(0, 122, 255),
+                -2px 0 0 rgb(0, 122, 255),
+                0 2px 0 rgb(0, 122, 255);
+}
+
+.radius-label {
+    background-color: #c7c7c7;
+    color: black;
+    height: 30px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+
+.divider {
+    margin: 25px;
+    width: 100%;
+    background-color: rgb(157, 157, 157);
+    height: 2px;
+    border: none;
+}
+
+.start-button {
+    all: unset;
+    margin: 10px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: -webkit-linear-gradient(top left, #e646de,  #cab228);
+    text-align: center;
+    width: fit-content;
+    border-radius: 30px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+}
+
+.start-button:hover {
+    cursor: pointer;
+    background: -webkit-linear-gradient(top left, #d140ca,  #fd9050);
+}
