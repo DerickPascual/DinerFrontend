@@ -1,0 +1,116 @@
+.hero-container,
+.join-container,
+.start-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px;
+}
+
+.hero-proposal,
+.hero-question {
+    width: fit-content;
+    margin: 0;
+}
+
+.hero-proposal {
+    font-size: 2.5rem;
+    background: -webkit-linear-gradient(top left, #fc71f5,  #fde661);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-question {
+    font-size: 3rem;
+}
+
+.join-box {
+    margin-top: 25px;
+    background-color: #242424;
+    width: fit-content;
+    padding: 12px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 3cqh;
+}
+
+.join-prompt {
+    font-size: 1.5rem;
+}
+
+.join-input {
+    all: unset;
+    width: 250px;
+    height: 30px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.join-input::placeholder {
+    color: rgb(150, 150, 150);
+}
+
+.join-input:focus {
+    outline: rgb(0, 122, 255) solid 2px;
+}
+
+.join-button-container {
+    margin-top: 10px;
+}
+
+.home-button {
+    all: unset;
+    margin: 10px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: -webkit-linear-gradient(top left, #e646de,  #cab228);
+    text-align: center;
+    width: fit-content;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+}
+
+.home-button:hover {
+    cursor: pointer;
+    background: -webkit-linear-gradient(top left, #d140ca,  #fd9050);
+}
+
+.start-prompt {
+    margin-bottom: 20px;
+    margin-top: 0;
+    font-size: 3rem;
+}
+
+.error-message {
+    color: rgb(221, 65, 56);
+    width: 250px;
+    margin-bottom: 0px;
+}
+
+@media screen and (max-width: 1010px) {
+    .hero-proposal {
+        font-size: 4vw;
+    }
+
+    .hero-question, .start-prompt {
+        font-size: 4.5vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .hero-proposal,
+    .hero-question,
+    .start-prompt {
+        font-size: 2rem;
+    }
+}

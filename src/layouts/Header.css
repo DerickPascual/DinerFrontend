@@ -1,0 +1,7 @@
+.dinder {
+    width: fit-content;
+    width: fit-content;
+    background: -webkit-linear-gradient(top left, #ff55f6,  #ffdd1b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
