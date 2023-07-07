@@ -5,3 +5,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.dinder:hover {
+    cursor: pointer;
+}
