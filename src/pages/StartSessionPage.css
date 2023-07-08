@@ -16,6 +16,13 @@
     padding-right: 30px;
 }
 
+.address-form-container,
+.radius-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .address-prompt,
 .radius-prompt {
     font-size: 1.5rem;
@@ -38,6 +45,10 @@
     outline: rgb(0, 122, 255) solid 2px;
 }
 
+.use-location-text {
+    margin-bottom: 0px;
+}
+
 .use-location-anchor {
     color: rgb(10, 132, 255);
     text-decoration: underline;
@@ -49,7 +60,6 @@
 }
 
 .radius-prompt {
-    margin: 0px;
     margin-bottom: -10px;
 }
 
@@ -63,10 +73,6 @@
     width: fit-content;
     padding: 0;
     border-radius: 5px;
-}
-
-.radius-input-container:focus {
-    outline: red 2px solid;
 }
 
 .radius-input {
@@ -110,6 +116,14 @@
     background-color: rgb(157, 157, 157);
     height: 2px;
     border: none;
+}
+
+.error-message {
+    color: rgb(221, 65, 56);
+    width: fit-content;
+    max-width: 250px;
+    margin: 15px;
+    margin-bottom: 10px;
 }
 
 .start-button {
