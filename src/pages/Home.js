@@ -25,7 +25,7 @@ export default function Home() {
         <div>
             <Header />
             <div className="hero-container">
-                <h2 className="hero-proposal">A simple, tinder for restaurants web app.</h2>
+                <h2 className="hero-proposal">A simple, Tinder for restaurants web app.</h2>
                 {/*<h2 className="hero-question">"Where do <i className="hero-italic">you</i> want to eat?"</h2>*/}
             </div>
             <div className="join-container">
