@@ -1,17 +1,46 @@
 import './StartSessionPage.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../layouts/Header';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 export default function SessionStartPage() {
     const [address, setAddress] = useState();
     const [addressError, setAddressError] = useState();
-    const [radius, setRadius] = useState(5);
+    const [latitude, setLatitude] = useState();
+    const [longitude, setLongitude] = useState();
+    const [radius, setRadius] = useState(10);
     const [radiusFocused, setRadiusFocused] = useState(false);
+    const [invalidRadius, setInvalidRadius] = useState(false);
     const [radiusError, setRadiusError] = useState();
 
-    const handleAddressChange = (e) => {
-        setAddress(e.target.value);
-        setAddressError('');
+    useEffect(() => {
+        if (latitude && longitude) {
+            setAddressError('');
+        }
+    }, [latitude, longitude]);
+
+    const success = (location) => {
+        setAddress();
+        setLatitude(location.coords.latitude);
+        setLongitude(location.coords.longitude);
+    }
+
+    const handleUseLocationClick = () => {
+        if (navigator.geolocation) {
+            navigator.permissions
+                .query({ name: "geolocation" })
+                .then((result) => {
+                    if (result.state === "granted") {
+                        navigator.geolocation.getCurrentPosition(success);
+                    } else if (result.state === "prompt") {
+                        navigator.geolocation.getCurrentPosition(success);
+                    } else if (result.state === "denied") {
+                        alert("Please enable location sharing for this website.\nSee this for help: https://support.google.com/chrome/answer/142065?hl=en&co=GENIE.Platform%3DDesktop");
+                    }
+                });
+        } else {
+            alert("Sorry not available!");
+        }
     }
 
     const handleRadiusFocus = () => {
@@ -19,13 +48,35 @@ export default function SessionStartPage() {
     }
 
     const handleRadiusChange = (e) => {
-        setRadius(e.target.value);
+        let possibleRadius = e.target.value;
+        const regex = /^[0-9]+$/;
+
+        if (possibleRadius === '' || regex.test(possibleRadius)) {
+
+            if (possibleRadius === '') {
+                setInvalidRadius(true);
+            } else {
+                possibleRadius = parseInt(possibleRadius);
+
+                if (5 <= possibleRadius && possibleRadius <= 50) {
+                    setInvalidRadius(false);
+                } else {
+                    setInvalidRadius(true);
+                }
+            }
+
+            setRadius(possibleRadius);
+        }
+
         setRadiusError('');
     }
 
     const handleStartClick = () => {
-        setRadiusError("Invalid radius.");
-        setAddressError("Invalid address.");
+        if (invalidRadius) setRadiusError("Invalid radius.");
+
+        
+
+        if (!(latitude || longitude)) setAddressError("Invalid address.");
     }
 
     return (
@@ -35,17 +86,42 @@ export default function SessionStartPage() {
                 <div className="start-session-box">
                     <div className="address-form-container">
                         <h3 className="address-prompt">Enter your address</h3>
-                        <input
-                            className="address-input"
-                            placeholder="Enter your address"
-                            value={address}
-                            onChange={handleAddressChange}
-                            style={{
-                                backgroundColor: addressError && 'rgb(255, 228, 226)',
-                                outline: addressError && 'rgb(255, 59, 48) solid 2px'
+                        <GooglePlacesAutocomplete
+                            apiKey={process.env.REACT_APP_MAPS_API_KEY}
+                            selectProps={{
+                                value: address || '',
+                                onChange: setAddress,
+                                placeholder: latitude && longitude ? "Using your current location!" : "Enter your address",
+                                styles: {
+                                    container: (provided) => ({
+                                        ...provided,
+                                        width: '270px',
+                                    }),
+                                    control: (provided, state) => ({
+                                        ...provided,
+                                        backgroundColor: addressError ? 'rgb(255, 228, 226)' : latitude && longitude ? 'rgb(236, 255, 226)' : 'white',
+                                        border: state.isFocused ? 0 : 0,
+                                        boxShadow: state.isFocused ? 0 : 0,
+                                        '&:hover': {
+                                            border: state.isFocused ? 0 : 0
+                                        },
+                                        outline: addressError ? 'rgb(255, 59, 48) solid 2px' : 
+                                                 latitude && longitude ? 'rgb(26, 156, 39) solid 2px' :
+                                                 state.isFocused && 'rgb(0, 122, 255) solid 2px'
+
+                                    }),
+                                    option: (provided) => ({
+                                        ...provided,
+                                        color: "black"
+                                    }),
+                                    placeholder: (provided) => ({
+                                        ...provided,
+                                        fontWeight: 'bold'
+                                    })
+                                }
                             }}
-                        ></input>
-                        <h4 className="use-location-text">Or, <a className="use-location-anchor">use your current location</a></h4>
+                        />
+                        <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location</a></h4>
                         {addressError &&
                             <h4 className="error-message">{addressError}</h4>
                         }
@@ -56,17 +132,18 @@ export default function SessionStartPage() {
                         <div
                             className="radius-input-container"
                             style={{
-                                outline: radiusError && 'rgb(221, 65, 56) solid 2px'
+                                outline: (radiusError || invalidRadius) && 'rgb(221, 65, 56) solid 2px'
                             }}
                         >
                             <input
                                 className="radius-input"
+                                maxLength={2}
                                 onFocus={handleRadiusFocus}
                                 onBlur={handleRadiusFocus}
                                 value={radius}
                                 onChange={handleRadiusChange}
                                 style={{
-                                    backgroundColor: radiusError && 'rgb(255, 228, 226)'
+                                    backgroundColor: (radiusError || invalidRadius) && 'rgb(255, 228, 226)'
                                 }}
                             >
                             </input>
@@ -74,7 +151,7 @@ export default function SessionStartPage() {
                                 className="radius-label"
                                 style={{
                                     boxShadow: radiusFocused ? '0 2px 0 rgb(0, 122, 255), 0 -2px 0 rgb(0, 122, 255), 2px 0 0 rgb(0, 122, 255)' : 'none',
-                                    backgroundColor: radiusError && 'rgb(220, 195, 195)'
+                                    backgroundColor: (radiusError || invalidRadius) && 'rgb(220, 195, 195)'
                                 }}
 
                             >miles</div>
