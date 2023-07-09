@@ -2,6 +2,7 @@ import './StartSessionPage.css';
 import { useState, useEffect } from 'react';
 import Header from '../layouts/Header';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 export default function SessionStartPage() {
     const [address, setAddress] = useState();
@@ -18,6 +19,27 @@ export default function SessionStartPage() {
             setAddressError('');
         }
     }, [latitude, longitude]);
+
+    useEffect(() => {
+        const validateAddress = async () => {
+            if (address) {
+                const res = await geocodeByAddress(address.label)
+                .catch(() => {
+                    setAddressError("Invalid address.");
+                });
+    
+                const coords = await getLatLng(res[0])
+                    .catch(() => {
+                        setAddressError("Invalid address.");
+                });
+    
+                setLatitude(coords.lat);
+                setLongitude(coords.lat);
+            }
+        }
+
+        validateAddress();
+    }, [address]);
 
     const success = (location) => {
         setAddress();
@@ -71,12 +93,10 @@ export default function SessionStartPage() {
         setRadiusError('');
     }
 
-    const handleStartClick = () => {
+    const handleStartClick = async () => {
         if (invalidRadius) setRadiusError("Invalid radius.");
 
-        
-
-        if (!(latitude || longitude)) setAddressError("Invalid address.");
+        if (!latitude || !longitude) setAddressError('Invalid address');
     }
 
     return (
