@@ -1,8 +1,15 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .card-container {
-    margin-top: 15vh;
+    margin-top: 10vh;
     display: flex;
     justify-content: center;
     width: 100%;
+    height: 500px;
 }
 
 .card {
@@ -17,6 +24,11 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .card-image-container {
@@ -92,4 +104,80 @@
 .card-info-number-ratings {
     margin-top: 5px;
     color: #929292;
+}
+
+.buttons-container {
+    margin: 50px;
+    width: 385px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-button-container {
+    width: fit-content;
+    height: fit-content;
+    background: #242424;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+}
+
+.single-button-container:hover {
+    cursor: pointer;
+    opacity: 0.65;
+}
+
+.swipe-button {
+    all: unset;
+    padding: 10px;
+    background: -webkit-linear-gradient(top left, #f950f1, #ffdd1b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.12rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.footer-container {
+    width: 100%;
+    margin: 30px;
+    color: #989898;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-pin {
+    background: -webkit-linear-gradient(top left, #cf42cf, #ffd51b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.matches-button-container {
+    width: fit-content;
+    height: fit-content;
+    background: #242424;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+}
+
+.matches-button-container:hover {
+    cursor: pointer;
+    opacity: 0.65;
+}
+
+.matches-button {
+    all: unset;
+    padding: 10px;
+    background: -webkit-linear-gradient(top left, #f059f0, #ffd51b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.12rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .footer-container {
+        text-align: center;
+    }
 }
