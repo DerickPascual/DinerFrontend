@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Home from './pages/Home';
 import StartSessionPage from './pages/StartSessionPage';
+import SwipeSessionPage from './pages/SwipeSessionPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'start-session',
         element: <StartSessionPage />
+      },
+      {
+        path: 'swipe-session',
+        element: <SwipeSessionPage />
       }
     ]
   }

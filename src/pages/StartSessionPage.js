@@ -1,5 +1,6 @@
 import './StartSessionPage.css';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../layouts/Header';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
@@ -13,6 +14,7 @@ export default function SessionStartPage() {
     const [radiusFocused, setRadiusFocused] = useState(false);
     const [invalidRadius, setInvalidRadius] = useState(false);
     const [radiusError, setRadiusError] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (latitude && longitude) {
@@ -94,9 +96,17 @@ export default function SessionStartPage() {
     }
 
     const handleStartClick = async () => {
-        if (invalidRadius) setRadiusError("Invalid radius.");
+        if (invalidRadius) {
+            setRadiusError("Invalid radius.");
+            return;
+        }
 
-        if (!latitude || !longitude) setAddressError('Invalid address');
+        if (!latitude || !longitude) {
+            setAddressError('Invalid address');
+            return;
+        }
+
+        navigate('/swipe-session');
     }
 
     return (
