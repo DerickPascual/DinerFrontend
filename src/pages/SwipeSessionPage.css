@@ -2,7 +2,11 @@
     margin-top: 15vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    width: 100%;
+}
+
+.card {
+    position: absolute;
 }
 
 .card-box {
@@ -12,6 +16,7 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .card-image-container {
