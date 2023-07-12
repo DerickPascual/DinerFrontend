@@ -18,18 +18,16 @@ export default function Home() {
 
         const response = axios.post('http://localhost:3500/api/check-room-id', {
             roomId: pin
-        }).catch(() => {
-            setError("Sorry! We don't recognize that PIN. Please try again.");
-            return;
         }).then(() => {
             setRoomId(pin);
-            console.log(pin);
             navigate('/swipe-session');
+        }).catch(() => {
+            setError("Sorry! We don't recognize that PIN. Please try again.");
         })
     };
 
     const handlePinInputChange = (e) => {
-        setPin(e.target.value);
+        setPin(e.target.value.toUpperCase());
         setError(false);
     }
 
@@ -52,6 +50,7 @@ export default function Home() {
                         placeholder="Session PIN"
                         value={pin}
                         onChange={handlePinInputChange}
+                        onKeyDown={(e) => e.key === 'Enter' && handleJoinClick()}
                         style={{
                             backgroundColor: error ? 'rgb(255, 228, 226)' : 'white',
                             outline: error && 'rgb(255, 59, 48) solid 2px'

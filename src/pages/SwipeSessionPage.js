@@ -6,124 +6,16 @@ import TinderCard from 'react-tinder-card';
 import { Rating } from 'react-simple-star-rating';
 import io from 'socket.io-client';
 
-const loaderData = [
-    {
-        name: '0',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.4,
-        numberRatings: 1238
-    },
-    {
-        name: '1',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.7,
-        numberRatings: 92
-    },
-    {
-        name: '2',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.8,
-        numberRatings: 1340
-    },
-    {
-        name: '3',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.4,
-        numberRatings: 1238
-    },
-    {
-        name: '4',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.7,
-        numberRatings: 92
-    },
-    {
-        name: '5',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.8,
-        numberRatings: 1340
-    },
-    {
-        name: '6',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.4,
-        numberRatings: 1238
-    },
-    {
-        name: '7',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.7,
-        numberRatings: 92
-    },
-    {
-        name: '8',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.8,
-        numberRatings: 1340
-    },
-    {
-        name: '9',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.4,
-        numberRatings: 1238
-    },
-    {
-        name: '10',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.7,
-        numberRatings: 92
-    },
-    {
-        name: '11',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.8,
-        numberRatings: 1340
-    },
-    {
-        name: '12',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.4,
-        numberRatings: 1238
-    },
-    {
-        name: '13',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.7,
-        numberRatings: 92
-    },
-    {
-        name: '14',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.8,
-        numberRatings: 1340
-    },
-    {
-        name: '15',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.4,
-        numberRatings: 1238
-    },
-    {
-        name: '16',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.7,
-        numberRatings: 92
-    },
-    {
-        name: '17',
-        imgUrl: '../images/RedRobin.jpg',
-        ratingValue: 4.8,
-        numberRatings: 1340
-    }
-]
-
 export default function SwipeSessionPage() {
-    const restaurants = loaderData;
-    const [currentIndex, setCurrentIndex] = useState(restaurants.length - 1);
+    const [restaurants, setRestaurants] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(-1);
     const [lastDirection, setLastDirection] = useState();
-    const currentIndexRef = useRef(restaurants.length - 1);
+    const currentIndexRef = useRef(-1);
     const [roomId, setRoomId] = useOutletContext();
     const [socket, setSocket] = useState();
+
+    const canSwipe = currentIndex >= 0;
+    const canGoBack = currentIndex < restaurants.length - 1;
 
     useEffect(() => {
         const newSocket = io('http://localhost:3500');
@@ -132,22 +24,26 @@ export default function SwipeSessionPage() {
 
         newSocket.emit("join_room", roomId);
 
+        newSocket.on("restaurants", (restaurants) => {
+            setRestaurants(restaurants);
+
+            setCurrentIndex(restaurants.length - 1);
+            currentIndexRef.current = restaurants.length - 1;
+        });
+
         return () => {
             newSocket.disconnect();
-        }
+        };
     }, [])
 
-    const canSwipe = currentIndex >= 0;
-    const canGoBack = currentIndex < restaurants.length - 1;
+    const restaurantRefs = useMemo(
+        () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
+    )
 
     const updateCurrentIndex = (val) => {
         setCurrentIndex(val)
         currentIndexRef.current = val;
     }
-
-    const restaurantRefs = useMemo(
-        () => Array(restaurants.length).fill(0).map((i) => React.createRef()), []
-    )
 
     const outOfFrame = (idx) => {
         currentIndexRef.current >= idx && restaurantRefs[idx].current.restoreCard();
@@ -184,7 +80,6 @@ export default function SwipeSessionPage() {
                                 className='card'
                                 preventSwipe={['up', 'down']}
                                 onSwipe={(dir) => swiped(dir, index)}
-                                swipeThreshold={1}
                             >
                                 <div
                                     className="card-box"
