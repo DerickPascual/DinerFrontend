@@ -1,9 +1,10 @@
 import './StartSessionPage.css';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import Header from '../layouts/Header';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import axios from 'axios';
 
 export default function SessionStartPage() {
     const [address, setAddress] = useState();
@@ -14,6 +15,7 @@ export default function SessionStartPage() {
     const [radiusFocused, setRadiusFocused] = useState(false);
     const [invalidRadius, setInvalidRadius] = useState(false);
     const [radiusError, setRadiusError] = useState();
+    const [roomId, setRoomId] = useOutletContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -105,6 +107,10 @@ export default function SessionStartPage() {
             setAddressError('Invalid address');
             return;
         }
+        
+        const response = await axios.get('http://localhost:3500/api/new-room-id');
+
+        setRoomId(response.data.roomId);
 
         navigate('/swipe-session');
     }

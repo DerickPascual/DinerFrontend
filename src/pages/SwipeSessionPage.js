@@ -1,8 +1,10 @@
 import './SwipeSessionPage.css';
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import Header from '../layouts/Header';
 import TinderCard from 'react-tinder-card';
 import { Rating } from 'react-simple-star-rating';
+import io from 'socket.io-client';
 
 const loaderData = [
     {
@@ -120,6 +122,20 @@ export default function SwipeSessionPage() {
     const [currentIndex, setCurrentIndex] = useState(restaurants.length - 1);
     const [lastDirection, setLastDirection] = useState();
     const currentIndexRef = useRef(restaurants.length - 1);
+    const [roomId, setRoomId] = useOutletContext();
+    const [socket, setSocket] = useState();
+
+    useEffect(() => {
+        const newSocket = io('http://localhost:3500');
+
+        setSocket(newSocket);
+
+        newSocket.emit("join_room", roomId);
+
+        return () => {
+            newSocket.disconnect();
+        }
+    }, [])
 
     const canSwipe = currentIndex >= 0;
     const canGoBack = currentIndex < restaurants.length - 1;
@@ -157,7 +173,7 @@ export default function SwipeSessionPage() {
 
     return (
         <div>
-            <Header />
+            <Header/>
             <div className="content-container">
                 <div className="card-container">
                     {restaurants.map((restaurant, index) => {
@@ -217,7 +233,7 @@ export default function SwipeSessionPage() {
                 </div>
                 <div className="footer-container">
                     <div>
-                        <h3>Session PIN: <b className="session-pin">123456</b></h3>
+                        <h3>Session PIN: <b className="session-pin">{roomId}</b></h3>
                     </div>
                     <div className="matches-button-container">
                         <button className="matches-button">View Matches</button>

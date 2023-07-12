@@ -1,15 +1,31 @@
 import './Home.css';
 import Header from '../layouts/Header.js';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useOutletContext } from 'react-router-dom'; 
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
     const navigate = useNavigate();
     const [pin, setPin] = useState();
     const [error, setError] = useState(false);
+    const [roomId, setRoomId] = useOutletContext();
 
-    const handleJoinClick = () => {
-        setError("Sorry! We don't recognize that PIN. Please try again.");
+    const handleJoinClick =  async () => {
+        if (!pin) {
+            setError("Sorry! We don't recognize that PIN. Please try again.");
+            return;
+        }
+
+        const response = axios.post('http://localhost:3500/api/check-room-id', {
+            roomId: pin
+        }).catch(() => {
+            setError("Sorry! We don't recognize that PIN. Please try again.");
+            return;
+        }).then(() => {
+            setRoomId(pin);
+            console.log(pin);
+            navigate('/swipe-session');
+        })
     };
 
     const handlePinInputChange = (e) => {
