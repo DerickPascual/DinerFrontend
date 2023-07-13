@@ -83,8 +83,11 @@ export default function SwipeSessionPage() {
                                 key={index}
                                 className='card'
                                 preventSwipe={['up', 'down']}
+                                outOfFrame={() => outOfFrame(index)}
                                 onSwipe={(dir) => swiped(dir, index)}
-                                swipeThreshold={1}
+                                swipeRequirementType={'velocity'}
+                                swipeThreshold={'0.8'}
+                                
                             >
                                 <div
                                     className="card-box"

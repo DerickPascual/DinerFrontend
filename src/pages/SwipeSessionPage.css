@@ -20,6 +20,10 @@
     position: absolute;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .card-box {
     width: 350px;
     height: 500px;
