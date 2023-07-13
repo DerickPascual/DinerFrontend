@@ -116,7 +116,7 @@ export default function SessionStartPage() {
     }
 
     return (
-        <div>
+        <div className="start-session-body">
             <Header />
             <div className="start-session-container">
                 <div className="start-session-box">

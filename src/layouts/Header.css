@@ -1,11 +1,24 @@
+.header {
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0.95),  rgba(255, 255, 255, 0));
+    padding: 20px;
+    padding-left: 30px;
+}
+
 .dinder {
     width: fit-content;
-    width: fit-content;
-    background: -webkit-linear-gradient(top left, #ff55f6,  #ffdd1b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
 }
 
 .dinder:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .dinder {
+        font-size: 1.75rem;
+    }
+
+    .header {
+        padding-left: 20px;
+    }
 }

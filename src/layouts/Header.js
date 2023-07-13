@@ -9,7 +9,7 @@ export default function Header() {
     }
 
     return (
-        <div>
+        <div className="header">
             <h1 className='dinder'><a onClick={handleDinderClick}>Dinder</a></h1>
         </div>
     )

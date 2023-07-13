@@ -4,7 +4,11 @@ import { useOutletContext } from 'react-router-dom';
 import Header from '../layouts/Header';
 import TinderCard from 'react-tinder-card';
 import { Rating } from 'react-simple-star-rating';
+import { ErrorBoundary } from "react-error-boundary";
 import io from 'socket.io-client';
+import CloseIcon from '@mui/icons-material/Close';
+import ReplayIcon from '@mui/icons-material/Replay';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -57,7 +61,7 @@ export default function SwipeSessionPage() {
     const handleSwipe = async (dir) => {
         if (canSwipe && currentIndex < restaurants.length) {
             await restaurantRefs[currentIndex].current.swipe(dir) // Swipe the card!
-          }
+        }
     }
 
     const goBack = async () => {
@@ -68,8 +72,8 @@ export default function SwipeSessionPage() {
     }
 
     return (
-        <div>
-            <Header/>
+        <div className="swipe-session-body">
+            <Header />
             <div className="content-container">
                 <div className="card-container">
                     {restaurants.map((restaurant, index) => {
@@ -80,6 +84,7 @@ export default function SwipeSessionPage() {
                                 className='card'
                                 preventSwipe={['up', 'down']}
                                 onSwipe={(dir) => swiped(dir, index)}
+                                swipeThreshold={1}
                             >
                                 <div
                                     className="card-box"
@@ -100,9 +105,13 @@ export default function SwipeSessionPage() {
                                                 <Rating
                                                     initialValue={restaurant.ratingValue}
                                                     readonly={true}
+                                                    allowHover={false}
                                                     allowFraction={true}
                                                     fillColor={'#FF9529'}
                                                     size={20}
+                                                    onClick={() => { }}
+                                                    showTooltip={false}
+                                                    disableFillHover={true}
                                                 />
                                             </div>
                                             <h3 className="card-info-stars">{restaurant.ratingValue} stars</h3>
@@ -116,18 +125,38 @@ export default function SwipeSessionPage() {
                     )}
                 </div>
                 <div className="buttons-container">
-                    <div className="single-button-container" style={{ opacity: !canSwipe && '0.5', backgroundColor: !canSwipe && '#242424', cursor: !canSwipe && 'default'}}>
-                        <button className="swipe-button" onClick={() => handleSwipe('left')}>Swipe left</button>
+                    <div className="single-button-container" style={{ opacity: !canSwipe && '0.5', backgroundColor: !canSwipe && '#242424', cursor: !canSwipe && 'default' }}>
+                        <button className="swipe-button" onClick={() => handleSwipe('left')}>
+                            <CloseIcon
+                                fontSize={'large'}
+                                style={{
+                                    color: '#f1444c'
+                                }}
+                            />
+                        </button>
                     </div>
-                    <div className="single-button-container" style={{ opacity: !canGoBack && '0.5', backgroundColor: !canGoBack && '#242424',cursor: !canGoBack && 'default'}}>
-                        <button className="swipe-button" onClick={() => goBack()}>Undo swipe</button>
+                    <div className="single-button-container" style={{ opacity: !canGoBack && '0.5', backgroundColor: !canGoBack && '#242424', cursor: !canGoBack && 'default' }}>
+                        <button className="swipe-button" onClick={() => goBack()}>
+                            <ReplayIcon
+                                fontSize={'large'}
+                                style={{
+                                    color: 'orange'
+                                }}
+                            />
+                        </button>
                     </div>
-                    <div className="single-button-container" style={{ opacity: !canSwipe && '0.5', backgroundColor: !canSwipe && '#242424', cursor: !canSwipe && 'default'}}>
-                        <button className="swipe-button" onClick={() => handleSwipe('right')}>Swipe right</button>
+                    <div className="single-button-container" style={{ opacity: !canSwipe && '0.5', backgroundColor: !canSwipe && '#242424', cursor: !canSwipe && 'default' }}>
+                        <button className="swipe-button" onClick={() => handleSwipe('right')}>
+                            <RestaurantIcon
+                                fontSize={'large'}
+                                style={{
+                                    color: '#3BD16F'
+                                }} />
+                        </button>
                     </div>
                 </div>
                 <div className="footer-container">
-                    <div>
+                    <div className="session-pin-text-container">
                         <h3>Session PIN: <b className="session-pin">{roomId}</b></h3>
                     </div>
                     <div className="matches-button-container">

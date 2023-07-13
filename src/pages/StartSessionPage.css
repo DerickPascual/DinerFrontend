@@ -1,3 +1,13 @@
+.start-session-body {
+    background: url('../images/lidye-unsplash.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
 .start-session-container {
     display: flex;
     justify-content: center;
@@ -5,10 +15,11 @@
 
 .start-session-box {
     margin-top: 25px;
-    background-color: #242424;
+    background-color: rgba(13, 13, 13, 0.9);
+    border: solid 2px #202020;
+    border-radius: 30px;
     width: fit-content;
     padding: 12px;
-    border-radius: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,6 +37,9 @@
 .address-prompt,
 .radius-prompt {
     font-size: 1.5rem;
+    margin: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .address-input {
@@ -46,6 +60,7 @@
 }
 
 .use-location-text {
+    margin-top: 10px;
     margin-bottom: 0px;
 }
 
@@ -60,11 +75,12 @@
 }
 
 .radius-prompt {
-    margin-bottom: -10px;
+    margin-bottom: 5px;
 }
 
 .radius-description {
     color: #a4a4a4;
+    margin-bottom: 20px;
 }
 
 .radius-input-container {
@@ -132,7 +148,7 @@
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
-    background: -webkit-linear-gradient(top left, #e646de,  #cab228);
+    background: -webkit-linear-gradient(#FD297B,  #FF655B);
     text-align: center;
     width: fit-content;
     border-radius: 30px;
@@ -143,5 +159,5 @@
 
 .start-button:hover {
     cursor: pointer;
-    background: -webkit-linear-gradient(top left, #d140ca,  #fd9050);
+    background: -webkit-linear-gradient(#ff5496,  #fd8880);
 }

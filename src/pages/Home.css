@@ -4,17 +4,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 25px;
+    margin: 20px;
+}
+
+.hero-container {
+    margin-bottom: 10vh;
+}
+
+.home-body {
+    background: url('../images/lidye-unsplash.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .hero-proposal,
 .hero-question {
     width: fit-content;
+    text-align: center;
     margin: 0;
 }
 
 .hero-proposal {
-    font-size: 2.5rem;
+    font-size: 4rem;
 }
 
 .hero-question {
@@ -27,20 +42,30 @@
     -webkit-text-fill-color: transparent;
 }
 
-.join-box {
-    margin-top: 25px;
-    background-color: #242424;
+.join-start-container {
+    display: flex;
+    justify-content: center;
+}
+
+.join-start-box {
     width: fit-content;
-    padding: 12px;
+    background-color: rgba(13, 13, 13, 0.9);
+    border: solid 2px #202020;
     border-radius: 30px;
+    padding: 0px;
+}
+
+.join-box {
+    padding: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 30px;
-    padding-right: 30px;
+    margin: 0px;
 }
 
 .join-prompt {
+    margin: 0px;
+    margin-bottom: 20px;
     font-size: 1.5rem;
 }
 
@@ -74,24 +99,25 @@
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
-    background: -webkit-linear-gradient(top left, #e646de,  #cab228);
+    background: #242424;
     text-align: center;
     width: fit-content;
     border-radius: 20px;
     font-size: 1.25rem;
     font-weight: bold;
     color: white;
+    background: -webkit-linear-gradient(#FD297B,  #FF655B);
 }
 
 .home-button:hover {
     cursor: pointer;
-    background: -webkit-linear-gradient(top left, #d140ca,  #fd9050);
+    background: -webkit-linear-gradient(#ff5496,  #fd8880);
 }
 
 .start-prompt {
     margin-bottom: 20px;
-    margin-top: 0;
-    font-size: 3rem;
+    margin-top: -20px;
+    font-size: 1.5rem;
 }
 
 .error-message {
@@ -104,18 +130,21 @@
 
 @media screen and (max-width: 1010px) {
     .hero-proposal {
-        font-size: 4vw;
+        font-size: 6vw;
     }
 
-    .hero-question, .start-prompt {
+    .hero-question {
         font-size: 4.5vw;
     }
 }
 
 @media screen and (max-width: 600px) {
     .hero-proposal,
-    .hero-question,
-    .start-prompt {
-        font-size: 2rem;
+    .hero-question {
+        font-size: 1.75rem;
+    }
+
+    .hero-container {
+        margin-bottom: 5vh;
     }
 }
