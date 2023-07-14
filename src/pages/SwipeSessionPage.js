@@ -4,7 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import Header from '../layouts/Header';
 import TinderCard from 'react-tinder-card';
 import { Rating } from 'react-simple-star-rating';
-import { ErrorBoundary } from "react-error-boundary";
+import ReactModal from 'react-modal';
 import io from 'socket.io-client';
 import CloseIcon from '@mui/icons-material/Close';
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -15,8 +15,10 @@ export default function SwipeSessionPage() {
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [lastDirection, setLastDirection] = useState();
     const currentIndexRef = useRef(-1);
+    const lowestIndexSwiped = useRef(-1);
     const [roomId, setRoomId] = useOutletContext();
     const [socket, setSocket] = useState();
+    const [matchesIsOpen, setMatchesIsOpen] = useState(false);
 
     const canSwipe = currentIndex >= 0;
     const canGoBack = currentIndex < restaurants.length - 1;
@@ -33,6 +35,7 @@ export default function SwipeSessionPage() {
 
             setCurrentIndex(restaurants.length - 1);
             currentIndexRef.current = restaurants.length - 1;
+            lowestIndexSwiped.current = restaurants.length - 1;
         });
 
         return () => {
@@ -47,6 +50,10 @@ export default function SwipeSessionPage() {
     const updateCurrentIndex = (val) => {
         setCurrentIndex(val)
         currentIndexRef.current = val;
+
+        if (val + 1 < lowestIndexSwiped.current) {
+            lowestIndexSwiped.current = val + 1;
+        }
     }
 
     const outOfFrame = (idx) => {
@@ -54,8 +61,15 @@ export default function SwipeSessionPage() {
     }
 
     const swiped = (direction, index) => {
-        setLastDirection(direction);
-        updateCurrentIndex(index - 1);
+        // ensures swipe only happen once, since for some reason swipe handler can be called 10+ times on a swipe
+        // Since currentIndexRef.current will always be updated after the first call with a specific index
+        if (index === currentIndexRef.current) {
+            
+            socket.emit("swipe", index, direction);
+
+            setLastDirection(direction);
+            updateCurrentIndex(index - 1);
+        }
     }
 
     const handleSwipe = async (dir) => {
@@ -85,13 +99,12 @@ export default function SwipeSessionPage() {
                                 preventSwipe={['up', 'down']}
                                 outOfFrame={() => outOfFrame(index)}
                                 onSwipe={(dir) => swiped(dir, index)}
-                                swipeRequirementType={'velocity'}
-                                swipeThreshold={'0.8'}
-                                
+                                swipeRequirementType={'position'}
+                                swipeThreshold={100}
                             >
                                 <div
                                     className="card-box"
-                                    style={index == currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
+                                    style={index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
                                 >
                                     <div className="card-image-container">
                                         <img className="card-image" src={require('../images/RedRobin.jpg')} />
@@ -163,9 +176,35 @@ export default function SwipeSessionPage() {
                         <h3>Session PIN: <b className="session-pin">{roomId}</b></h3>
                     </div>
                     <div className="matches-button-container">
-                        <button className="matches-button">View Matches</button>
+                        <button className="matches-button" onClick={() => setMatchesIsOpen(true)}>View Matches</button>
                     </div>
                 </div>
+            </div>
+            <div className="modal-container">
+                <ReactModal
+                    isOpen={matchesIsOpen}
+                    onRequestClose={() => setMatchesIsOpen(false)}
+                    shouldCloseOnOverlayClick={true}
+                    style={{
+                        overlay: {
+                            backgroundColor: 'rgba(8, 8, 8, 0.9)'
+                        },
+                        content: {
+                            border: 'none',
+                            backgroundColor: ('#242424'),
+                            borderRadius: '30px',
+                            width: '50vw',
+                            height: 'fit-content',
+                            position: "absolute",
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)'
+                        }
+                    }}
+                >
+                    <h2>Matches</h2>
+                </ReactModal>
+
             </div>
         </div>
     )

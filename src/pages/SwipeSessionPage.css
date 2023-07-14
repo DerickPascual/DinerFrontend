@@ -185,6 +185,9 @@
     border-radius: 20px;
 }
 
+.modal-container {
+}
+
 @media screen and (max-width: 600px) {
     .matches-button-container {
         margin-right: 10px;
