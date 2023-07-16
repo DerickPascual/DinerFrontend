@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 import CloseIcon from '@mui/icons-material/Close';
 import ReplayIcon from '@mui/icons-material/Replay';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import ConfettiExplosion from 'react-confetti-explosion';
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -20,7 +21,9 @@ export default function SwipeSessionPage() {
     const [socket, setSocket] = useState();
     const [matchesIsOpen, setMatchesIsOpen] = useState(false);
     const [likesAndDislikes, setLikesAndDislikes] = useState([]);
-
+    const [matchFoundOpen,  setMatchFoundOpen] = useState(false);
+    const [restaurantMatch, setRestaurantMatch] = useState({});
+ 
     const canSwipe = currentIndex >= 0;
     const canGoBack = currentIndex < restaurants.length - 1;
 
@@ -43,10 +46,15 @@ export default function SwipeSessionPage() {
             setLikesAndDislikes(updatedLikesAndDislikes);
         });
 
+        newSocket.on("match_found", (restaurant) => {
+            setMatchFoundOpen(true);
+            setRestaurantMatch(restaurant);
+        });
+
         return () => {
             newSocket.disconnect();
         };
-    }, [])
+    }, []);
 
     const restaurantRefs = useMemo(
         () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
@@ -94,6 +102,37 @@ export default function SwipeSessionPage() {
     return (
         <div className="swipe-session-body">
             <Header />
+            <ReactModal 
+                isOpen={matchFoundOpen}
+                onRequestClose={() => setMatchFoundOpen(false)}
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(8, 8, 8, 0.9)',
+                        overFlowY: 'auto'
+                    },
+                    content: {
+                        border: 'none',
+                        backgroundColor: ('#242424'),
+                        borderRadius: '15px',
+                        height: 'fit-content',
+                        width: '50vw',
+                        height: '80vh',
+                        position: "absolute",
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }
+                }}
+            >
+                <div style={{ display: 'flex', justifyContent: 'center', height: '100%', alignItems: 'center'}}>
+                    <ConfettiExplosion 
+                        force={0.8}
+                        duration={3000}
+                        particleCount={250}
+                        width={1600}
+                    />
+                </div>
+            </ReactModal>
             <div className="content-container">
                 <div className="card-container">
                     {restaurants.map((restaurant, index) => {
@@ -105,8 +144,6 @@ export default function SwipeSessionPage() {
                                 preventSwipe={['up', 'down']}
                                 outOfFrame={() => outOfFrame(index)}
                                 onSwipe={(dir) => swiped(dir, index)}
-                                swipeRequirementType={'position'}
-                                swipeThreshold={100}
                             >
                                 <div
                                     className="card-box"
@@ -190,7 +227,6 @@ export default function SwipeSessionPage() {
                 <ReactModal
                     isOpen={matchesIsOpen}
                     onRequestClose={() => setMatchesIsOpen(false)}
-                    shouldCloseOnOverlayClick={true}
                     className="modal"
                     style={{
                         overlay: {
