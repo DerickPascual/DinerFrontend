@@ -1,0 +1,61 @@
+.modal {
+    overflow: auto;
+    padding: 15px;
+    width: 50vw;
+}
+
+.modal::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+.modal::-webkit-scrollbar-track {
+    background-color: #242424;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+/* Handle */
+.modal::-webkit-scrollbar-thumb {
+    background-color: #646464;
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+.modal::-webkit-scrollbar-thumb:hover {
+    background-color: #525252;
+}
+
+.title-container,
+.restaurant-container {
+    margin: 10px;
+}
+
+.restaurant-container {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #363636;
+}
+
+.restaurant-name-container {
+    text-align: center;
+    margin: 5px;
+}
+
+.likes-dislikes-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.likes-container,
+.dislikes-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.likes-dislikes-num {
+    margin: 8px;
+}

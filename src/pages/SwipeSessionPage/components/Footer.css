@@ -1,0 +1,50 @@
+.footer-container {
+    position: absolute;
+    bottom: 2vh;
+    width: 100%;
+    color: #989898;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-pin-text-container {
+    margin-left: 30px;
+}
+
+.session-pin {
+    color: white;
+}
+
+.matches-button-container {
+    width: fit-content;
+    height: fit-content;
+    background: -webkit-linear-gradient(#FD297B, #FF655B);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+    margin-right: 30px;
+}
+
+.matches-button-container:hover {
+    cursor: pointer;
+    opacity: 0.65;
+}
+
+.matches-button {
+    all: unset;
+    padding: 10px;
+    color: white;
+    font-size: 1.12rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .matches-button-container {
+        margin-right: 10px;
+    }
+
+    .session-pin-text-container {
+        margin-left: 10px;
+    }
+}

@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import Home from './pages/Home';
 import StartSessionPage from './pages/StartSessionPage';
-import SwipeSessionPage from './pages/SwipeSessionPage';
+import SwipeSessionPage from './pages/SwipeSessionPage/SwipeSessionPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([

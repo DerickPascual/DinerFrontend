@@ -1,0 +1,50 @@
+.buttons-container {
+    margin: 50px;
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-button-container {
+    width: fit-content;
+    height: fit-content;
+    background: #242424;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+}
+
+.single-button-container:hover {
+    cursor: pointer;
+    opacity: 0.65;
+}
+
+.swipe-button {
+    all: unset;
+    padding: 15px;
+    padding-top: 19px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+}
+ 
+@media screen and (max-width: 600px) {
+    .single-button-container:hover {
+        opacity: 1;
+    }
+
+    .single-button-container:active {
+        opacity: 0.65;
+    }
+}
+
+@media screen and (max-height: 850px) {
+    .buttons-container {
+        margin-top: 3vh;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .buttons-container {
+        margin-top: 10px;
+    }
+}
