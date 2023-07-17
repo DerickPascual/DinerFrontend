@@ -21,9 +21,9 @@ export default function SwipeSessionPage() {
     const [socket, setSocket] = useState();
     const [matchesIsOpen, setMatchesIsOpen] = useState(false);
     const [likesAndDislikes, setLikesAndDislikes] = useState([]);
-    const [matchFoundOpen,  setMatchFoundOpen] = useState(false);
+    const [matchFoundOpen, setMatchFoundOpen] = useState(false);
     const [restaurantMatch, setRestaurantMatch] = useState({});
- 
+
     const canSwipe = currentIndex >= 0;
     const canGoBack = currentIndex < restaurants.length - 1;
 
@@ -102,7 +102,7 @@ export default function SwipeSessionPage() {
     return (
         <div className="swipe-session-body">
             <Header />
-            <ReactModal 
+            <ReactModal
                 isOpen={matchFoundOpen}
                 onRequestClose={() => setMatchFoundOpen(false)}
                 style={{
@@ -121,16 +121,41 @@ export default function SwipeSessionPage() {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
+                        padding: '30px',
+                        overflow: 'hidden'
                     }
                 }}
             >
-                <div style={{ display: 'flex', justifyContent: 'center', height: '100%', alignItems: 'center'}}>
-                    <ConfettiExplosion 
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                    <ConfettiExplosion
                         force={0.8}
                         duration={3000}
                         particleCount={250}
                         width={1600}
                     />
+                    <h1 className="match-header">It's a Match!</h1>
+                    <h3 className="match-description">Everyone in this room liked:</h3>
+                    <h2>{restaurantMatch.name}</h2>
+                    <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                        <h4 className="match-info-number-ratings" style={{ paddingTop: '0px' }}>{restaurantMatch.ratingValue}</h4>
+                        <div className="card-info-rating" style={{ margin: '10px' }}>
+                            <Rating
+                                initialValue={restaurantMatch.ratingValue}
+                                readonly={true}
+                                allowHover={false}
+                                allowFraction={true}
+                                fillColor={'#FF9529'}
+                                size={18}
+                                onClick={() => { }}
+                                showTooltip={false}
+                                disableFillHover={true}
+                            />
+                        </div>
+                        <h4 className="match-info-number-ratings">({restaurantMatch.numberRatings})</h4>
+                    </div>
+                    <div className="match-image-container">
+                        <img className="match-image" src={require('../images/RedRobin.jpg')} />
+                    </div>
                 </div>
             </ReactModal>
             <div className="content-container">
@@ -144,6 +169,8 @@ export default function SwipeSessionPage() {
                                 preventSwipe={['up', 'down']}
                                 outOfFrame={() => outOfFrame(index)}
                                 onSwipe={(dir) => swiped(dir, index)}
+                                swipeRequirementType={'position'}
+                                swipeThreshold={100}
                             >
                                 <div
                                     className="card-box"
@@ -274,7 +301,7 @@ export default function SwipeSessionPage() {
                                             <h3 className="likes-dislikes-num">{restaurantLikesAndDislikes.likes}</h3>
                                         </div>
                                         <div className="dislikes-container">
-                                                <CloseIcon
+                                            <CloseIcon
                                                 fontSize="large"
                                                 style={{
                                                     color: '#f1444c'

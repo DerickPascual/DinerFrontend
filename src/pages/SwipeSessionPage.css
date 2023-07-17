@@ -247,6 +247,44 @@
     margin: 8px;
 }
 
+.match-header {
+    font-size: 50px;
+    background: -webkit-linear-gradient(top left, #fc468c, #fd9e97);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.match-description {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #acacac;
+}
+
+.match-image-container {
+    margin: 15px;
+    height: 300px;
+    width: 100%;
+}
+
+.match-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    border-radius: 15px;
+}
+
+.match-info-number-ratings {
+    margin-top: 5px;
+    color: #989898;
+    font-weight: 400;
+}
+
 @media screen and (max-width: 600px) {
     .matches-button-container {
         margin-right: 10px;
