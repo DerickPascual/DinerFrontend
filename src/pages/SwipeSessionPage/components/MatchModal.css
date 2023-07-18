@@ -4,14 +4,14 @@
 }
 
 .match-header {
-    font-size: 50px;
+    font-size: 40px;
     background: -webkit-linear-gradient(top left, #fc468c, #fd9e97);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .match-description {
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 5px;
     color: #acacac;
 }
@@ -35,18 +35,30 @@
     border-radius: 15px;
 }
 
-.match-info-number-ratings {
+.match-info-rating {
     margin-top: 5px;
     color: #989898;
     font-weight: 400;
+    margin-right: -5px;
+}
+
+.match-info-number-ratings {
+    color: #989898;
+    font-weight: 400;
+    margin-left: -7px;
+}
+
+.match-info-price-level {
+    color: rgb(85, 155, 85);
+    margin-left: 15px;
 }
 
 .view-website-button {
     all: unset;
     display: flex;
-    padding: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     border: solid 1px #acacac;
     border-radius: 30px;
 }
