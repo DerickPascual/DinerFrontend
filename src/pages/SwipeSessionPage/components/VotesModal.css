@@ -45,8 +45,61 @@
     background-color: #363636;
 }
 
+.restaurant-top-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-name-container {
+    display: flex;
+}
+
+.restaurant-rating-container {
+    display: flex;
+    color: #acacac;
+}
+
+.restaurant-rating-value {
+    margin-right: 5px;
+}
+
+.restaurant-number-ratings {
+    margin-left: 4px;
+}
+
+.restaurant-price-container {
+    margin-bottom: 5px;
+    color: rgb(85, 155, 85);
+}
+
 .restaurant-name-container {
     margin: 5px;
+}
+
+.restaurant-address-container {
+    color: #acacac;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
+.google-button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    border: solid 1px #646464;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.google-button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.google-button-view-text {
+    margin-right: 5px;
 }
 
 .likes-dislikes-container {
@@ -62,6 +115,7 @@
 
 .likes-dislikes-num {
     margin: 8px;
+    color: #e8e8e8;
 }
 
 @media screen and (max-width: 600px) {
