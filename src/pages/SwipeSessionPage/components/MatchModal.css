@@ -1,3 +1,8 @@
+.match-modal {
+    width: 50vw;
+    padding: 30px;
+}
+
 .match-header {
     font-size: 50px;
     background: -webkit-linear-gradient(top left, #fc468c, #fd9e97);
@@ -36,8 +41,43 @@
     font-weight: 400;
 }
 
+.view-website-button {
+    all: unset;
+    display: flex;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: solid 1px #acacac;
+    border-radius: 30px;
+}
+
+.view-website-button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.view-website-text {
+    margin-right: 5px;
+}
+
+
 @media screen and (max-width: 600px) {
-    .modal {
+    .match-header {
+        font-size: 30px;
+    }
+
+    .match-description {
+        font-size: 18px;
+    }
+
+    .match-modal {
         width: 300px;
+        padding: 10px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .match-image-container {
+        height: 250px;
     }
 }

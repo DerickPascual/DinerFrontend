@@ -1,14 +1,19 @@
 import './MatchModal.css';
-import ConfettiExplosion from 'react-confetti-explosion';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Rating } from 'react-simple-star-rating';
 import ReactModal from 'react-modal';
 
 export default function MatchModal({ isOpen, setIsOpen, restaurantMatch }) {
+    const handleGoogleRedirect = (url) => {
+        window.open(url, "_blank");
+    }
+    
     return (
         <div>
             <ReactModal
                 isOpen={isOpen}
                 onRequestClose={() => setIsOpen(false)}
+                className="match-modal"
                 style={{
                     overlay: {
                         backgroundColor: 'rgba(8, 8, 8, 0.9)',
@@ -19,24 +24,15 @@ export default function MatchModal({ isOpen, setIsOpen, restaurantMatch }) {
                         backgroundColor: ('#242424'),
                         borderRadius: '15px',
                         height: 'fit-content',
-                        width: '50vw',
-                        height: '80vh',
                         position: "absolute",
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        padding: '30px',
-                        overflow: 'hidden'
+                        overflowX: 'hidden'
                     }
                 }}
             >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                    <ConfettiExplosion
-                        force={0.8}
-                        duration={3000}
-                        particleCount={250}
-                        width={1600}
-                    />
                     <h1 className="match-header">It's a Match!</h1>
                     <h3 className="match-description">Everyone in this room liked:</h3>
                     <h2>{restaurantMatch.name}</h2>
@@ -59,6 +55,16 @@ export default function MatchModal({ isOpen, setIsOpen, restaurantMatch }) {
                     </div>
                     <div className="match-image-container">
                         <img className="match-image" src={require('../../../images/RedRobin.jpg')} />
+                    </div>
+                    <div>
+                        <button className="view-website-button" onClick={() => handleGoogleRedirect(restaurantMatch.url)}>
+                            <h3 className="view-website-text">
+                                View on Google
+                            </h3>
+                            <ArrowOutwardIcon 
+                                fontSize={'medium'}
+                            />
+                        </button>
                     </div>
                 </div>
             </ReactModal>

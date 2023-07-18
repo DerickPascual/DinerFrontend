@@ -9,6 +9,7 @@ import MatchModal from './components/MatchModal';
 import VotesModal from './components/VotesModal';
 import Footer from './components/Footer';
 import Buttons from './components/Buttons';
+import InfoModal from './components/InfoModal';
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -19,6 +20,7 @@ export default function SwipeSessionPage() {
     const [socket, setSocket] = useState();
     const [matchesIsOpen, setMatchesIsOpen] = useState(false);
     const [likesAndDislikes, setLikesAndDislikes] = useState([]);
+    const [infoModalOpen, setInfoModalOpen] = useState(false);
     const [matchModalOpen, setMatchModalOpen] = useState(false);
     const [restaurantMatch, setRestaurantMatch] = useState({});
     
@@ -41,7 +43,7 @@ export default function SwipeSessionPage() {
 
             setCurrentIndex(restaurants.length - 1);
             currentIndexRef.current = restaurants.length - 1;
-            lowestIndexSwiped.current = restaurants.length - 1;
+            lowestIndexSwiped.current = restaurants.length;
         });
 
         newSocket.on("likes_and_dislikes", (updatedLikesAndDislikes) => {
@@ -124,7 +126,7 @@ export default function SwipeSessionPage() {
                                         <div className="card-name-container">
                                             <h3 className="card-name">{restaurant.name}</h3>
                                             <div>
-                                                <h3 className="card-info-open-closed">Open</h3>
+                                                <h3 className="card-info-price">{'$'.repeat(restaurant.priceLevel)}</h3>
                                             </div>
                                         </div>
                                         <div className="card-info">
@@ -145,12 +147,18 @@ export default function SwipeSessionPage() {
                                             <h4 className="card-info-number-ratings">{restaurant.numberRatings} ratings</h4>
                                         </div>
                                     </div>
+                                    <div className="card-view-more-container">
+                                        <button className="view-more-button pressable" onTouchStart={() => {}} onClick={() => setInfoModalOpen(true)}>
+                                            View more
+                                        </button>
+                                    </div>
                                 </div>
                             </TinderCard>
                         )
                     }
                     )}
                 </div>
+                <InfoModal isOpen={infoModalOpen} setIsOpen={setInfoModalOpen} restaurant={restaurants.length > 0 ? restaurants[currentIndex] : null}/>
                 <Buttons canSwipe={canSwipe} canGoBack={canGoBack} handleSwipe={handleSwipe} goBack={goBack}/>
                 <Footer setMatchesIsOpen={setMatchesIsOpen} roomId={roomId}/>
             </div>

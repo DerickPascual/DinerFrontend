@@ -28,11 +28,15 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
                         }
                     }}
                 >
-                    {/* Need to make this a separate component */}
                     <div className="title-container">
-                        <h1>Votes</h1>
+                        <h2>Votes</h2>
                         <hr></hr>
                     </div>
+                    {lowestIndexSwiped.current === restaurants.length &&
+                        <div className="empty-votes-message-container">
+                            <p className="empty-votes-message">Start swiping to see votes!</p>
+                        </div>
+                    }
                     {likesAndDislikes.slice().reverse().map((restaurantLikesAndDislikes, index) => {
 
                         if (restaurants.length - 1 - lowestIndexSwiped.current < index) {
@@ -43,7 +47,7 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
                             <div>
                                 <div className="restaurant-container">
                                     <div className="restaurant-name-container">
-                                        <h2>{restaurants.slice().reverse()[index].name}</h2>
+                                        <h3>{restaurants.slice().reverse()[index].name}</h3>
                                     </div>
                                     <hr></hr>
                                     <div className="likes-dislikes-container">
@@ -53,7 +57,7 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
                                                 style={{
                                                     color: '#3BD16F'
                                                 }} />
-                                            <h3 className="likes-dislikes-num">{restaurantLikesAndDislikes.likes}</h3>
+                                            <p className="likes-dislikes-num">{restaurantLikesAndDislikes.likes}</p>
                                         </div>
                                         <div className="dislikes-container">
                                             <CloseIcon
@@ -61,7 +65,7 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
                                                 style={{
                                                     color: '#f1444c'
                                                 }} />
-                                            <h3 className="likes-dislikes-num">{restaurantLikesAndDislikes.dislikes}</h3>
+                                            <p className="likes-dislikes-num">{restaurantLikesAndDislikes.dislikes}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,5 @@
 import './Home.css';
-import Header from '../layouts/Header.js';
+import Header from '../../layouts/Header.js';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';

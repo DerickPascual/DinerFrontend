@@ -1,7 +1,7 @@
 import './StartSessionPage.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import Header from '../layouts/Header';
+import Header from '../../layouts/Header';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import axios from 'axios';

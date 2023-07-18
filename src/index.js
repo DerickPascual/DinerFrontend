@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Home from './pages/Home';
-import StartSessionPage from './pages/StartSessionPage';
+import Home from './pages/Home/Home';
+import StartSessionPage from './pages/StartSessionPage/StartSessionPage';
 import SwipeSessionPage from './pages/SwipeSessionPage/SwipeSessionPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 

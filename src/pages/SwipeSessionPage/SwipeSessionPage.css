@@ -40,7 +40,7 @@
 }
 
 .card-image-container {
-    height: 350px;
+    height: 65%;
     width: 100%;
     background-color: #484848;
     border-top-left-radius: 15px;
@@ -62,7 +62,7 @@
 }
 
 .card-description-container {
-    height: 150px;
+    height: 25%;
     width: 330px;
     display: flex;
     justify-content: space-between;
@@ -71,6 +71,13 @@
     padding-right: 10px;
     overflow-wrap: break-word;
     font-size: 1rem;
+}
+
+.card-view-more-container {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .card-name-container,
@@ -94,7 +101,7 @@
     text-align: center;
 }
 
-.card-info-open-closed {
+.card-info-price {
     margin-top: 10px;
     margin-bottom: 10px;
     color: rgb(85, 155, 85);
@@ -115,9 +122,42 @@
     color: #929292;
 }
 
+.view-more-button {
+    all: unset;
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+    border: solid 1px #acacac;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1rem;
+    user-select: auto;
+    -moz-user-select: auto;
+    -webkit-user-drag: auto;
+    -webkit-user-select: auto;
+    -ms-user-select: auto;
+}
+
+.view-more-button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.view-more-text {
+}
+
 @media screen and (max-height: 850px) {
     .card-container {
         margin-top: 3vh;
+    }
+
+    .view-more-button:hover {
+        opacity: 1;
+    }
+
+    .view-more-button:active {
+        opacity: 0.5;
     }
 }
 
@@ -128,11 +168,15 @@
     }
 
     .card-image-container {
-        height: 330px;
+        height: 65%;
     }
 
     .card-description-container {
-        height: 120px;
+        height: 25%;
+    }
+
+    .card-view-more-container {
+        height: 10%;
     }
 }
 
@@ -143,10 +187,14 @@
     }
 
     .card-image-container {
-        height: 280px;
+        height: 60%;
     }
 
     .card-description-container {
-        height: 120px;
+        height: 28%;
+    }
+
+    .card-view-more-container {
+        height: 12%;
     }
 }

@@ -27,8 +27,16 @@
 }
 
 .title-container,
-.restaurant-container {
+.restaurant-container,
+.empty-votes-message-container {
     margin: 10px;
+}
+
+.empty-votes-message-container {
+}
+
+.empty-votes-message {
+    color: #acacac;
 }
 
 .restaurant-container {
@@ -38,24 +46,26 @@
 }
 
 .restaurant-name-container {
-    text-align: center;
     margin: 5px;
 }
 
 .likes-dislikes-container {
     display: flex;
-    justify-content: space-between;
 }
 
 .likes-container,
 .dislikes-container {
     display: flex;
     align-items: center;
-    margin-left: 20px;
-    margin-right: 20px;
     margin-top: 10px;
 }
 
 .likes-dislikes-num {
     margin: 8px;
+}
+
+@media screen and (max-width: 600px) {
+    .modal {
+        width: 300px;
+    }
 }
