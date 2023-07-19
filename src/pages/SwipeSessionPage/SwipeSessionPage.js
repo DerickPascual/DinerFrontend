@@ -10,6 +10,9 @@ import VotesModal from './components/VotesModal';
 import Footer from './components/Footer';
 import Buttons from './components/Buttons';
 import InfoModal from './components/InfoModal';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -23,7 +26,7 @@ export default function SwipeSessionPage() {
     const [infoModalOpen, setInfoModalOpen] = useState(false);
     const [matchModalOpen, setMatchModalOpen] = useState(false);
     const [restaurantMatch, setRestaurantMatch] = useState({});
-    
+
     const restaurantRefs = useMemo(
         () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
     )
@@ -100,7 +103,7 @@ export default function SwipeSessionPage() {
     return (
         <div className="swipe-session-body">
             <Header />
-            <MatchModal isOpen={matchModalOpen} setIsOpen={setMatchModalOpen} restaurantMatch={restaurantMatch}/>
+            <MatchModal isOpen={matchModalOpen} setIsOpen={setMatchModalOpen} restaurantMatch={restaurantMatch} />
             <div className="content-container">
                 <div className="card-container">
                     {restaurants.map((restaurant, index) => {
@@ -120,7 +123,49 @@ export default function SwipeSessionPage() {
                                     style={index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
                                 >
                                     <div className="card-image-container">
-                                        <img className="card-image" src={require('../../images/RedRobin.jpg')} />
+
+                                        <Carousel
+                                            showThumbs={false}
+                                            showIndicators={false}
+                                            swipeable={false}
+                                            autoPlay={index === currentIndex}
+                                            renderArrowPrev={(clickHandler, hasPrev) => {
+                                                if (hasPrev) {
+                                                    return (
+                                                        <button
+                                                            onClick={clickHandler}
+                                                            className="pressable carousel-button-left"
+                                                        >
+                                                        </button>
+                                                    )
+                                                }
+                                            }}
+                                            renderArrowNext={(clickHandler, hasNext) => {
+                                                if (hasNext) {
+                                                    return (
+                                                        <button onClick={clickHandler} className="pressable carousel-button-right">
+                                                        </button>
+                                                    )
+                                                }
+                                            }
+                                            }
+                                        /*renderIndicator={(clickHandler, isSelected) => {
+                                            return (
+                                                <li
+                                                    className="carousel-indicator"
+                                                    style={{
+                                                        backgroundColor: isSelected ? '#ffffff' : 'rgba(180, 180, 180, 0.75)'
+                                                    }}
+                                                ></li>
+                                            )
+                                        }}*/
+                                        >
+                                            {restaurant.photoUrls.map((url) => 
+                                                <div>
+                                                    <img src={require('../../images/RedRobin.jpg')}/>
+                                                </div>
+                                            )}
+                                        </Carousel>
                                     </div>
                                     <div className="card-description-container">
                                         <div className="card-name-container">
@@ -148,7 +193,7 @@ export default function SwipeSessionPage() {
                                         </div>
                                     </div>
                                     <div className="card-view-more-container">
-                                        <button className="view-more-button pressable" onTouchStart={() => {}} onClick={() => setInfoModalOpen(true)}>
+                                        <button className="view-more-button pressable" onTouchStart={() => { }} onClick={() => setInfoModalOpen(true)}>
                                             View more
                                         </button>
                                     </div>
@@ -158,11 +203,11 @@ export default function SwipeSessionPage() {
                     }
                     )}
                 </div>
-                <InfoModal isOpen={infoModalOpen} setIsOpen={setInfoModalOpen} restaurant={restaurants.length > 0 ? restaurants[currentIndex] : null}/>
-                <Buttons canSwipe={canSwipe} canGoBack={canGoBack} handleSwipe={handleSwipe} goBack={goBack}/>
-                <Footer setMatchesIsOpen={setMatchesIsOpen} roomId={roomId}/>
+                <InfoModal isOpen={infoModalOpen} setIsOpen={setInfoModalOpen} restaurant={restaurants.length > 0 ? restaurants[currentIndex] : null} />
+                <Buttons canSwipe={canSwipe} canGoBack={canGoBack} handleSwipe={handleSwipe} goBack={goBack} />
+                <Footer setMatchesIsOpen={setMatchesIsOpen} roomId={roomId} />
             </div>
-            <VotesModal isOpen={matchesIsOpen} setIsOpen={setMatchesIsOpen} likesAndDislikes={likesAndDislikes} restaurants={restaurants} lowestIndexSwiped={lowestIndexSwiped}/>
+            <VotesModal isOpen={matchesIsOpen} setIsOpen={setMatchesIsOpen} likesAndDislikes={likesAndDislikes} restaurants={restaurants} lowestIndexSwiped={lowestIndexSwiped} />
         </div>
     )
 };
