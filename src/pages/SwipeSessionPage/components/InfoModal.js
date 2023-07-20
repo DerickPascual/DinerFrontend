@@ -103,7 +103,7 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                                 <p className="review-time-desc">{review.relativeTimeDescription}</p>
                                             </div>
                                             <div className="review-right-side-container">
-                                                <p>"{review.text}"</p>
+                                                <p>{review.text}</p>
                                             </div>
                                         </div>
                                     )

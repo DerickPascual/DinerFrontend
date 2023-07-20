@@ -43,6 +43,7 @@
     border-radius: 10px;
 }
 
+
 @media screen and (max-width: 600px) {
     .carousel-button-left:hover,
     .carousel-button-right:hover {
@@ -54,10 +55,13 @@
     .carousel img {
         height: 292.5px !important;
     }
+
+
 }
 
 @media screen and (max-height: 700px) {
     .carousel img {
         height: 240px !important;
     }
+
 }

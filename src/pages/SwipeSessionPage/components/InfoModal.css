@@ -147,5 +147,9 @@
     .info-modal {
         width: 300px;
     }
+
+    .info-modal-single-review-container {
+        display: block;
+    }
 }
 

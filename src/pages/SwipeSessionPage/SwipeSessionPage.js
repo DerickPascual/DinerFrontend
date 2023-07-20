@@ -109,12 +109,12 @@ export default function SwipeSessionPage() {
             <MatchModal isOpen={matchModalOpen} setIsOpen={setMatchModalOpen} restaurantMatch={restaurantMatch} />
             <div className="content-container">
                 <div className="card-container">
-                    {initialLoad && 
-                        <TinderCard 
+                    {initialLoad &&
+                        <TinderCard
                             className='card'
                             preventSwipe={['up', 'down', 'left', 'right']}
                         >
-                            <div 
+                            <div
                                 className="card-box"
                                 style={{ boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' }}
                             >
@@ -131,51 +131,53 @@ export default function SwipeSessionPage() {
                                 key={index}
                                 className='card'
                                 preventSwipe={['up', 'down']}
-                                outOfFrame={() => outOfFrame(index)}
                                 onSwipe={(dir) => swiped(dir, index)}
-                                swipeRequirementType={'position'}
+                                swipeRequirementType='position'
                                 swipeThreshold={100}
                             >
-                                <div
-                                    className="card-box"
-                                    style={index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
-                                >
-                                    <div className="card-image-container">
-                                        {(index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 || index === currentIndex + 2 || index === currentIndex - 2) &&
-                                            <CardCarousel currentIndex={currentIndex} index={index} restaurant={restaurant}/>
-                                        }
-                                    </div>
-                                    <div className="card-description-container">
-                                        <div className="card-name-container">
-                                            <h3 className="card-name">{restaurant.name}</h3>
-                                            <div>
-                                                <h3 className="card-info-price">{'$'.repeat(restaurant.priceLevel)}</h3>
+                                {(index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 || index === currentIndex - 2 || index === currentIndex + 2) ?
+                                    <div
+                                        className="card-box"
+                                        style={index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
+                                    >
+                                        <div className="card-image-container">
+                                            <CardCarousel currentIndex={currentIndex} index={index} restaurant={restaurant} />
+                                        </div>
+                                        <div className="card-description-container">
+                                            <div className="card-name-container">
+                                                <h3 className="card-name">{restaurant.name}</h3>
+                                                <div>
+                                                    <h3 className="card-info-price">{'$'.repeat(restaurant.priceLevel)}</h3>
+                                                </div>
+                                            </div>
+                                            <div className="card-info">
+                                                <div className="card-info-rating">
+                                                    <Rating
+                                                        initialValue={restaurant.ratingValue}
+                                                        readonly={true}
+                                                        allowHover={false}
+                                                        allowFraction={true}
+                                                        fillColor={'#FF9529'}
+                                                        size={20}
+                                                        onClick={() => { }}
+                                                        showTooltip={false}
+                                                        disableFillHover={true}
+                                                    />
+                                                </div>
+                                                <h3 className="card-info-stars">{restaurant.ratingValue} stars</h3>
+                                                <h4 className="card-info-number-ratings">{restaurant.numberRatings} ratings</h4>
                                             </div>
                                         </div>
-                                        <div className="card-info">
-                                            <div className="card-info-rating">
-                                                <Rating
-                                                    initialValue={restaurant.ratingValue}
-                                                    readonly={true}
-                                                    allowHover={false}
-                                                    allowFraction={true}
-                                                    fillColor={'#FF9529'}
-                                                    size={20}
-                                                    onClick={() => { }}
-                                                    showTooltip={false}
-                                                    disableFillHover={true}
-                                                />
-                                            </div>
-                                            <h3 className="card-info-stars">{restaurant.ratingValue} stars</h3>
-                                            <h4 className="card-info-number-ratings">{restaurant.numberRatings} ratings</h4>
+                                        <div className="card-view-more-container">
+                                            <button className="view-more-button pressable" onTouchStart={() => { }} onClick={() => setInfoModalOpen(true)}>
+                                                View more
+                                            </button>
                                         </div>
+                                    </div> :
+                                    <div className="card-box">
+
                                     </div>
-                                    <div className="card-view-more-container">
-                                        <button className="view-more-button pressable" onTouchStart={() => { }} onClick={() => setInfoModalOpen(true)}>
-                                            View more
-                                        </button>
-                                    </div>
-                                </div>
+                                }
                             </TinderCard>
                         )
                     }
