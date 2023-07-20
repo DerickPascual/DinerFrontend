@@ -12,6 +12,7 @@ import Buttons from './components/Buttons';
 import InfoModal from './components/InfoModal';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import CardCarousel from './components/CardCarousel';
 
 
 export default function SwipeSessionPage() {
@@ -140,39 +141,8 @@ export default function SwipeSessionPage() {
                                     style={index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
                                 >
                                     <div className="card-image-container">
-                                        {(index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1) &&
-                                            <Carousel
-                                                showThumbs={false}
-                                                showIndicators={false}
-                                                swipeable={false}
-                                                autoPlay={index === currentIndex}
-                                                renderArrowPrev={(clickHandler, hasPrev) => {
-                                                    if (hasPrev) {
-                                                        return (
-                                                            <button
-                                                                onClick={clickHandler}
-                                                                className="pressable carousel-button-left"
-                                                            >
-                                                            </button>
-                                                        )
-                                                    }
-                                                }}
-                                                renderArrowNext={(clickHandler, hasNext) => {
-                                                    if (hasNext) {
-                                                        return (
-                                                            <button onClick={clickHandler} className="pressable carousel-button-right">
-                                                            </button>
-                                                        )
-                                                    }
-                                                }
-                                                }
-                                            >
-                                                {restaurant.photoUrls.map((url) =>
-                                                    <div>
-                                                        <img src={url} />
-                                                    </div>
-                                                )}
-                                            </Carousel>
+                                        {(index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 || index === currentIndex + 2 || index === currentIndex - 2) &&
+                                            <CardCarousel currentIndex={currentIndex} index={index} restaurant={restaurant}/>
                                         }
                                     </div>
                                     <div className="card-description-container">

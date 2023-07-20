@@ -16,6 +16,13 @@ export default function SessionStartPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setRadius(5);
+        setLatitude('');
+        setLongitude('');
+    }, [])
+
+
+    useEffect(() => {
         if (latitude && longitude) {
             setAddressError('');
         }
@@ -35,7 +42,7 @@ export default function SessionStartPage() {
                 });
     
                 setLatitude(coords.lat);
-                setLongitude(coords.lat);
+                setLongitude(coords.lng);
             }
         }
 
@@ -81,7 +88,7 @@ export default function SessionStartPage() {
             } else {
                 possibleRadius = parseInt(possibleRadius);
 
-                if (5 <= possibleRadius && possibleRadius <= 50) {
+                if (5 <= possibleRadius && possibleRadius <= 30) {
                     setInvalidRadius(false);
                 } else {
                     setInvalidRadius(true);
@@ -161,7 +168,7 @@ export default function SessionStartPage() {
                     </div>
                     <div className="radius-form-container">
                         <h3 className="radius-prompt">Enter a restaurant radius</h3>
-                        <h4 className="radius-description">Values between 5 and 50 are accepted.</h4>
+                        <h4 className="radius-description">Values between 5 and 30 are accepted.</h4>
                         <div
                             className="radius-input-container"
                             style={{

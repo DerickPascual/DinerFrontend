@@ -42,7 +42,7 @@
 .card-image-container {
     height: 65%;
     width: 100%;
-    background-color: #484848;
+    background-color: white;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -146,59 +146,6 @@
 
 .view-more-text {}
 
-.carousel img {
-    height: 325px !important;
-    width: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    border-top-left-radius: 15px !important;
-    border-top-right-radius: 15px !important;
-    user-select: none !important;
-    -moz-user-select: none !important;
-    -webkit-user-drag: none !important;
-    -webkit-user-select: none !important;
-    -ms-user-select: none !important;
-}
-
-.carousel-button-left,
-.carousel-button-right {
-    all: unset;
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 50%;
-}
-
-.carousel-button-left:hover,
-.carousel-button-right:hover {
-    cursor: pointer;
-    background-color: rgba(5, 5, 5, 0.4)
-}
-
-.carousel-button-left {}
-
-.carousel-button-right {
-    right: 0;
-    top: 0;
-}
-
-.carousel-indicator {
-    width: 30px;
-    height: 2px;
-    display: inline-block;
-    margin-left: 1px;
-    margin-right: 1px;
-    border-radius: 10px;
-}
-
-@media screen and (max-width: 600px) {
-    .carousel-button-left:hover,
-    .carousel-button-right:hover {
-        background-color: rgba(0, 0, 0, 0);
-    }
-
-}
-
 @media screen and (max-height: 850px) {
     .card-container {
         margin-top: 3vh;
@@ -214,7 +161,6 @@
 }
 
 @media screen and (max-height: 750px) {
-
     .card-box,
     .card-container {
         height: 450px;
@@ -222,10 +168,6 @@
 
     .card-image-container {
         height: 65%;
-    }
-
-    .carousel img {
-        height: 292.5px !important;
     }
 
     .card-description-container {
