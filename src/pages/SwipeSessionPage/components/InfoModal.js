@@ -64,6 +64,9 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                             <div className="info-modal-price-container">
                                 <p className="info-modal-price">{'$'.repeat(restaurant.priceLevel)}</p>
                             </div>
+                            <div className="info-modal-restaurant-description-container">
+                                <p className="info-modal-restaurant-description">{restaurant.description}</p>
+                            </div>
                             <div className="info-modal-hours-container">
                                 <h4 className="info-modal-hours-header">Hours: <b className="info-modal-hours-open-text">Open now</b></h4>
                                 {restaurant.hours.map((day) => {

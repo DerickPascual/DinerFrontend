@@ -19,13 +19,14 @@ export default function SwipeSessionPage() {
     const [currentIndex, setCurrentIndex] = useState(-1);
     const currentIndexRef = useRef(-1);
     const lowestIndexSwiped = useRef(-1);
-    const roomId = useOutletContext()[0];
+    const [roomId, setRoomId, latitude, setLatitude, longitude, setLongitude, radius, setRadius] = useOutletContext();
     const [socket, setSocket] = useState();
     const [matchesIsOpen, setMatchesIsOpen] = useState(false);
     const [likesAndDislikes, setLikesAndDislikes] = useState([]);
     const [infoModalOpen, setInfoModalOpen] = useState(false);
     const [matchModalOpen, setMatchModalOpen] = useState(false);
     const [restaurantMatch, setRestaurantMatch] = useState({});
+    const [initialLoad, setInitialLoad] = useState(true);
 
     const restaurantRefs = useMemo(
         () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
@@ -39,7 +40,7 @@ export default function SwipeSessionPage() {
 
         setSocket(newSocket);
 
-        newSocket.emit("join_room", roomId);
+        newSocket.emit("join_room", roomId, latitude, longitude, radius);
 
         newSocket.on("restaurants", (restaurants) => {
             setRestaurants(restaurants);
@@ -47,6 +48,7 @@ export default function SwipeSessionPage() {
             setCurrentIndex(restaurants.length - 1);
             currentIndexRef.current = restaurants.length - 1;
             lowestIndexSwiped.current = restaurants.length;
+            setInitialLoad(false);
         });
 
         newSocket.on("likes_and_dislikes", (updatedLikesAndDislikes) => {
@@ -106,6 +108,21 @@ export default function SwipeSessionPage() {
             <MatchModal isOpen={matchModalOpen} setIsOpen={setMatchModalOpen} restaurantMatch={restaurantMatch} />
             <div className="content-container">
                 <div className="card-container">
+                    {initialLoad && 
+                        <TinderCard 
+                            className='card'
+                            preventSwipe={['up', 'down', 'left', 'right']}
+                        >
+                            <div 
+                                className="card-box"
+                                style={{ boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' }}
+                            >
+                                <div style={{ position: 'absolute', top: '50%', textAlign: 'center', width: '100%' }}>
+                                    <h2>Loading restaurants...</h2>
+                                </div>
+                            </div>
+                        </TinderCard>
+                    }
                     {restaurants.map((restaurant, index) => {
                         return (
                             <TinderCard
@@ -123,49 +140,40 @@ export default function SwipeSessionPage() {
                                     style={index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1 ? { boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' } : { boxShadow: 'none' }}
                                 >
                                     <div className="card-image-container">
-
-                                        <Carousel
-                                            showThumbs={false}
-                                            showIndicators={false}
-                                            swipeable={false}
-                                            autoPlay={index === currentIndex}
-                                            renderArrowPrev={(clickHandler, hasPrev) => {
-                                                if (hasPrev) {
-                                                    return (
-                                                        <button
-                                                            onClick={clickHandler}
-                                                            className="pressable carousel-button-left"
-                                                        >
-                                                        </button>
-                                                    )
+                                        {(index === currentIndex || index === currentIndex - 1 || index === currentIndex + 1) &&
+                                            <Carousel
+                                                showThumbs={false}
+                                                showIndicators={false}
+                                                swipeable={false}
+                                                autoPlay={index === currentIndex}
+                                                renderArrowPrev={(clickHandler, hasPrev) => {
+                                                    if (hasPrev) {
+                                                        return (
+                                                            <button
+                                                                onClick={clickHandler}
+                                                                className="pressable carousel-button-left"
+                                                            >
+                                                            </button>
+                                                        )
+                                                    }
+                                                }}
+                                                renderArrowNext={(clickHandler, hasNext) => {
+                                                    if (hasNext) {
+                                                        return (
+                                                            <button onClick={clickHandler} className="pressable carousel-button-right">
+                                                            </button>
+                                                        )
+                                                    }
                                                 }
-                                            }}
-                                            renderArrowNext={(clickHandler, hasNext) => {
-                                                if (hasNext) {
-                                                    return (
-                                                        <button onClick={clickHandler} className="pressable carousel-button-right">
-                                                        </button>
-                                                    )
                                                 }
-                                            }
-                                            }
-                                        /*renderIndicator={(clickHandler, isSelected) => {
-                                            return (
-                                                <li
-                                                    className="carousel-indicator"
-                                                    style={{
-                                                        backgroundColor: isSelected ? '#ffffff' : 'rgba(180, 180, 180, 0.75)'
-                                                    }}
-                                                ></li>
-                                            )
-                                        }}*/
-                                        >
-                                            {restaurant.photoUrls.map((url) => 
-                                                <div>
-                                                    <img src={require('../../images/RedRobin.jpg')}/>
-                                                </div>
-                                            )}
-                                        </Carousel>
+                                            >
+                                                {restaurant.photoUrls.map((url) =>
+                                                    <div>
+                                                        <img src={url} />
+                                                    </div>
+                                                )}
+                                            </Carousel>
+                                        }
                                     </div>
                                     <div className="card-description-container">
                                         <div className="card-name-container">

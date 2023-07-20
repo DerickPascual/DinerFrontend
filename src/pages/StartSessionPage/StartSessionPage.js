@@ -9,13 +9,10 @@ import axios from 'axios';
 export default function SessionStartPage() {
     const [address, setAddress] = useState();
     const [addressError, setAddressError] = useState();
-    const [latitude, setLatitude] = useState();
-    const [longitude, setLongitude] = useState();
-    const [radius, setRadius] = useState(10);
     const [radiusFocused, setRadiusFocused] = useState(false);
     const [invalidRadius, setInvalidRadius] = useState(false);
     const [radiusError, setRadiusError] = useState();
-    const [roomId, setRoomId] = useOutletContext();
+    const [roomId, setRoomId, latitude, setLatitude, longitude, setLongitude, radius, setRadius] = useOutletContext();
     const navigate = useNavigate();
 
     useEffect(() => {

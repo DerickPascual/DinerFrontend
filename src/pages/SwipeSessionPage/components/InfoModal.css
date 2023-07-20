@@ -90,6 +90,14 @@
     color: #E8E8E8;
 }
 
+.info-modal-restaurant-description {
+    color: #E8E8E8;
+}
+
+.info-modal-restaurant-description-container {
+    margin-bottom: 10px;
+}
+
 .empty-reviews-message {
     color: #acacac;
 }
