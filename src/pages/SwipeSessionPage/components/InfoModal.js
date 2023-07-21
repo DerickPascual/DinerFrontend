@@ -88,7 +88,7 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                     return (
                                         <div className="info-modal-single-review-container" onClick={() => handleReviewRedirect(review.url)}>
                                             <div className="info-modal-review-left-side-container">
-                                                <img className="info-modal-review-photo" src={review.profilePhoto} />
+                                                <img className="info-modal-review-photo" src={review.profilePhoto} referrerPolicy='no-referrer'/>
                                                 <div className="review-rating-container">
                                                     <Rating
                                                         initialValue={review.rating}

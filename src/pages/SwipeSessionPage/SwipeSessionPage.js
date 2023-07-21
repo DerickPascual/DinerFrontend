@@ -13,7 +13,7 @@ import InfoModal from './components/InfoModal';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CardCarousel from './components/CardCarousel';
-
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -27,7 +27,10 @@ export default function SwipeSessionPage() {
     const [infoModalOpen, setInfoModalOpen] = useState(false);
     const [matchModalOpen, setMatchModalOpen] = useState(false);
     const [restaurantMatch, setRestaurantMatch] = useState({});
+
     const [initialLoad, setInitialLoad] = useState(true);
+    const [showFindingRestaurantsMsg, setShowFindingRestaurantsMsg] = useState(false);
+    const [restaurantLoadProgress, setRestaurantLoadProgress] = useState(0);
 
     const restaurantRefs = useMemo(
         () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
@@ -41,14 +44,21 @@ export default function SwipeSessionPage() {
 
         setSocket(newSocket);
 
+        // Comment this out to edit loading screens
         newSocket.emit("join_room", roomId, latitude, longitude, radius);
 
+        newSocket.on("initial_load_finished", () => {
+            setShowFindingRestaurantsMsg(true);
+        });
+
+        /*Comment this out to edit loading screens */
         newSocket.on("restaurants", (restaurants) => {
             setRestaurants(restaurants);
-
+            
             setCurrentIndex(restaurants.length - 1);
             currentIndexRef.current = restaurants.length - 1;
             lowestIndexSwiped.current = restaurants.length;
+            setRestaurantLoadProgress(100);
             setInitialLoad(false);
         });
 
@@ -61,10 +71,42 @@ export default function SwipeSessionPage() {
             setRestaurantMatch(restaurant);
         });
 
+        newSocket.on("additional_restaurants", (additionalRestaurants) => {
+
+            setRestaurants((currentRestaurants) => {
+                console.log(currentRestaurants);
+                console.log(additionalRestaurants);
+
+                const newRestaurantList = [...additionalRestaurants, ...currentRestaurants];
+
+                console.log(`New restaurant List ${newRestaurantList}`);
+
+                return newRestaurantList;
+            });
+
+            setCurrentIndex((currentIndex) => currentIndex + additionalRestaurants.length);
+            currentIndexRef.current += additionalRestaurants.length;
+            console.log(currentIndexRef.current);
+        });
+
         return () => {
             newSocket.disconnect();
         };
     }, []);
+
+    useEffect(() => {
+        let timer;
+        if (showFindingRestaurantsMsg && restaurantLoadProgress < 85) {
+            timer = setInterval(() => {
+                setRestaurantLoadProgress((oldProgress) => {
+                    return oldProgress + 7.5 + Math.random() * 7.5;
+                })
+            }, 500);
+        }
+
+        return () => clearInterval(timer);
+    }, [showFindingRestaurantsMsg, restaurantLoadProgress])
+
 
     const updateCurrentIndex = (val) => {
         setCurrentIndex(val)
@@ -75,9 +117,12 @@ export default function SwipeSessionPage() {
         }
     }
 
-    const outOfFrame = (idx) => {
-        currentIndexRef.current >= idx && restaurantRefs[idx].current.restoreCard();
-    }
+    /*useEffect(() => {
+        if (currentIndex === 10 && restaurants.length === 20) {
+            // emit to socket asking for more restaurants
+            socket.emit("get_additional_restaurants");
+        }
+    }, [currentIndex]);*/
 
     const swiped = (direction, index) => {
         // ensures swipe only happen once, since for some reason swipe handler can be called 10+ times on a swipe
@@ -119,7 +164,24 @@ export default function SwipeSessionPage() {
                                 style={{ boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' }}
                             >
                                 <div style={{ position: 'absolute', top: '50%', textAlign: 'center', width: '100%' }}>
-                                    <h2>Loading restaurants...</h2>
+                                    {showFindingRestaurantsMsg ?
+                                        <div>
+                                            <h2>Finding restaurants...</h2>
+                                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                                                <LinearProgress
+                                                    style={{
+                                                        width: '90%',
+                                                        marginTop: '20px',
+                                                        borderRadius: '30px'
+                                                    }}
+                                                    value={restaurantLoadProgress}
+                                                    variant={'determinate'}
+                                                />
+                                            </div>
+                                        </div>
+                                        :
+                                        <h2>Preparing your swipe room...</h2>
+                                    }
                                 </div>
                             </div>
                         </TinderCard>
@@ -174,6 +236,7 @@ export default function SwipeSessionPage() {
                                             </button>
                                         </div>
                                     </div> :
+                                    (index < currentIndex) &&
                                     <div className="card-box">
 
                                     </div>
@@ -185,7 +248,7 @@ export default function SwipeSessionPage() {
                 </div>
                 <InfoModal isOpen={infoModalOpen} setIsOpen={setInfoModalOpen} restaurant={restaurants.length > 0 ? restaurants[currentIndex] : null} />
                 <Buttons canSwipe={canSwipe} canGoBack={canGoBack} handleSwipe={handleSwipe} goBack={goBack} />
-                <Footer setMatchesIsOpen={setMatchesIsOpen} roomId={roomId} />
+                {!initialLoad && <Footer setMatchesIsOpen={setMatchesIsOpen} roomId={roomId} />}
             </div>
             <VotesModal isOpen={matchesIsOpen} setIsOpen={setMatchesIsOpen} likesAndDislikes={likesAndDislikes} restaurants={restaurants} lowestIndexSwiped={lowestIndexSwiped} />
         </div>

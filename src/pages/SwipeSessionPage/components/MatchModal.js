@@ -35,7 +35,7 @@ export default function MatchModal({ isOpen, setIsOpen, restaurantMatch }) {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                     <h2 className="match-header">It's a Match!</h2>
                     <div className="match-image-container">
-                        <img className="match-image" src={require('../../../images/RedRobin.jpg')} />
+                        <img className="match-image" src={restaurantMatch.photoUrls && restaurantMatch.photoUrls[0]} />
                     </div>
                     <p className="match-description">Everyone in this room liked:</p>
                     <h2>{restaurantMatch.name}</h2>
