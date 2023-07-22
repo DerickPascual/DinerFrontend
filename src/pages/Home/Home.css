@@ -12,13 +12,17 @@
 }
 
 .home-body {
-    background: url('../../images/lidye-unsplash.jpg') no-repeat center center fixed;
+    background: url('../../images/igor-miske.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     background-position: center;
     height: 100vh;
+}
+
+.home-body-overlay {
+    
 }
 
 .hero-proposal,
@@ -49,8 +53,9 @@
 
 .join-start-box {
     width: fit-content;
-    background-color: rgba(8, 8, 8, 0.9);
     border: solid 2px #161616;
+    background-color: rgba(8, 8, 8, 0.9);
+    backdrop-filter: blur(2px);
     border-radius: 30px;
     padding: 0px;
 }
@@ -66,7 +71,7 @@
 .join-prompt {
     margin: 0px;
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .join-input {
@@ -97,13 +102,13 @@
     all: unset;
     margin: 10px;
     padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     background: #242424;
     text-align: center;
     width: fit-content;
     border-radius: 20px;
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     font-weight: bold;
     color: white;
     background: -webkit-linear-gradient(#FD297B,  #FF655B);
@@ -117,7 +122,7 @@
 .start-prompt {
     margin-bottom: 20px;
     margin-top: -20px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .error-message {
@@ -141,7 +146,7 @@
 @media screen and (max-width: 600px) {
     .hero-proposal,
     .hero-question {
-        font-size: 1.75rem;
+        font-size: 2.25rem;
     }
 
     .hero-container {

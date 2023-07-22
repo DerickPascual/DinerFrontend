@@ -18,6 +18,7 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
             {restaurant &&
                 <div>
                     <ReactModal
+                        ariaHideApp={false}
                         isOpen={isOpen}
                         onRequestClose={() => setIsOpen(false)}
                         className="info-modal"
@@ -71,7 +72,7 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                 <h4 className="info-modal-hours-header">Hours: <b className="info-modal-hours-open-text">Open now</b></h4>
                                 {restaurant.hours.map((day) => {
                                     return (
-                                        <p>{day}</p>
+                                        <p key={day}>{day}</p>
                                     )
                                 })}
                             </div>
@@ -84,11 +85,11 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                 {restaurant.reviews.length === 0 &&
                                     <p className="empty-reviews-message">Nothing to see here.</p>
                                 }   
-                                {restaurant.reviews.map((review) => {
+                                {restaurant.reviews.map((review, index) => {
                                     return (
-                                        <div className="info-modal-single-review-container" onClick={() => handleReviewRedirect(review.url)}>
+                                        <div className="info-modal-single-review-container" onClick={() => handleReviewRedirect(review.url)} key={index}>
                                             <div className="info-modal-review-left-side-container">
-                                                <img className="info-modal-review-photo" src={review.profilePhoto} referrerPolicy='no-referrer'/>
+                                                <img className="info-modal-review-photo" src={review.profilePhoto} referrerPolicy='no-referrer' alt="profile"/>
                                                 <div className="review-rating-container">
                                                     <Rating
                                                         initialValue={review.rating}
@@ -109,7 +110,9 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                     )
                                 })}
                             </div>
-
+                            <div style={{marginTop: '15px', textAlign: 'right'}}>
+                                <img alt="Google" src={require('../../../images/google.png')} className="google-img"/>
+                            </div>
                         </div>
                     </ReactModal>
                 </div>

@@ -1,20 +1,19 @@
 .header {
-    background: -webkit-linear-gradient(rgba(0, 0, 0, 0.95),  rgba(255, 255, 255, 0));
     padding: 20px;
     padding-left: 30px;
 }
 
-.dinder {
+.diner {
     width: fit-content;
     font-size: 2.5rem;
 }
 
-.dinder:hover {
+.diner:hover {
     cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
-    .dinder {
+    .diner {
         font-size: 1.75rem;
     }
 

@@ -37,41 +37,43 @@ export default function Home() {
 
     return (
         <div className="home-body">
-            <Header />
-            <div className="hero-container">
-                <h2 className="hero-proposal">Tinder, but for restaurants.</h2>
-                {/*<h2 className="hero-question">"Where do <i className="hero-italic">you</i> want to eat?"</h2>*/}
-            </div>
-            <div className="join-start-container">
-                <div className="join-start-box">
-                    <div className="join-container">
-                        <div className="join-box">
-                            <h3 className="join-prompt">Join a session</h3>
-                            <input
-                                className="join-input"
-                                placeholder="Session PIN"
-                                value={pin}
-                                onChange={handlePinInputChange}
-                                onKeyDown={(e) => e.key === 'Enter' && handleJoinClick()}
-                                style={{
-                                    backgroundColor: error ? 'rgb(255, 228, 226)' : 'white',
-                                    outline: error && 'rgb(255, 59, 48) solid 2px'
-                                }}
-                            ></input>
-                            {
-                                error &&
-                                <h4 className='error-message'>{error}</h4>
-                            }
-                            <div className="join-button-container">
-                                <button className="home-button" onClick={handleJoinClick}>Enter</button>
+            <div className="home-body-overlay">
+            <Header withGradient={true}/>
+                <div className="hero-container">
+                    <h2 className="hero-proposal">Swipe, Savor, Repeat.</h2>
+                    {/*<h2 className="hero-question">"Where do <i className="hero-italic">you</i> want to eat?"</h2>*/}
+                </div>
+                <div className="join-start-container">
+                    <div className="join-start-box">
+                        <div className="join-container">
+                            <div className="join-box">
+                                <h3 className="join-prompt">Join a session</h3>
+                                <input
+                                    className="join-input"
+                                    placeholder="Session PIN"
+                                    value={pin}
+                                    onChange={handlePinInputChange}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleJoinClick()}
+                                    style={{
+                                        backgroundColor: error ? 'rgb(255, 228, 226)' : 'white',
+                                        outline: error && 'rgb(255, 59, 48) solid 2px'
+                                    }}
+                                ></input>
+                                {
+                                    error &&
+                                    <h4 className='error-message'>{error}</h4>
+                                }
+                                <div className="join-button-container">
+                                    <button className="home-button" onClick={handleJoinClick}>Enter</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="start-container">
-                        <h3 className='start-prompt'>Or, start a session:</h3>
-                        <button className="home-button" onClick={handleStartClick}>Start session</button>
-                    </div>
+                        <div className="start-container">
+                            <h3 className='start-prompt'>Or, start a session:</h3>
+                            <button className="home-button" onClick={handleStartClick}>Start a session</button>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>

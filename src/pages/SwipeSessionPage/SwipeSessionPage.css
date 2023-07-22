@@ -73,13 +73,6 @@
     font-size: 1rem;
 }
 
-.card-view-more-container {
-    padding-left: 10px;
-    padding-right: 10px;
-    display: flex;
-    justify-content: center;
-}
-
 .card-name-container,
 .card-info {
     height: 100%;
@@ -139,9 +132,21 @@
     -ms-user-select: auto;
 }
 
+.card-view-more-container {
+    padding-left: 10px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .view-more-button:hover {
     cursor: pointer;
     opacity: 0.5;
+}
+
+.google-img {
+    height: fit-content;
 }
 
 .view-more-text {}

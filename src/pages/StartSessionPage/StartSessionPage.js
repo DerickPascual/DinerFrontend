@@ -32,15 +32,15 @@ export default function SessionStartPage() {
         const validateAddress = async () => {
             if (address) {
                 const res = await geocodeByAddress(address.label)
-                .catch(() => {
-                    setAddressError("Invalid address.");
-                });
-    
+                    .catch(() => {
+                        setAddressError("Invalid address.");
+                    });
+
                 const coords = await getLatLng(res[0])
                     .catch(() => {
                         setAddressError("Invalid address.");
-                });
-    
+                    });
+
                 setLatitude(coords.lat);
                 setLongitude(coords.lng);
             }
@@ -111,7 +111,7 @@ export default function SessionStartPage() {
             setAddressError('Invalid address');
             return;
         }
-        
+
         const response = await axios.get('http://localhost:3500/api/new-room-id');
 
         setRoomId(response.data.roomId);
@@ -121,11 +121,12 @@ export default function SessionStartPage() {
 
     return (
         <div className="start-session-body">
-            <Header />
+            <Header withGradient={true} />
             <div className="start-session-container">
                 <div className="start-session-box">
                     <div className="address-form-container">
                         <h3 className="address-prompt">Enter your address</h3>
+                        <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location</a></h4>
                         <GooglePlacesAutocomplete
                             apiKey={process.env.REACT_APP_MAPS_API_KEY}
                             selectProps={{
@@ -145,14 +146,15 @@ export default function SessionStartPage() {
                                         '&:hover': {
                                             border: state.isFocused ? 0 : 0
                                         },
-                                        outline: addressError ? 'rgb(255, 59, 48) solid 2px' : 
-                                                 latitude && longitude ? 'rgb(26, 156, 39) solid 2px' :
-                                                 state.isFocused && 'rgb(0, 122, 255) solid 2px'
+                                        outline: addressError ? 'rgb(255, 59, 48) solid 2px' :
+                                            latitude && longitude ? 'rgb(26, 156, 39) solid 2px' :
+                                                state.isFocused && 'rgb(0, 122, 255) solid 2px'
 
                                     }),
                                     option: (provided) => ({
                                         ...provided,
-                                        color: "black"
+                                        color: "black",
+                                        borderBottom: 'solid 1px black',
                                     }),
                                     placeholder: (provided) => ({
                                         ...provided,
@@ -161,7 +163,9 @@ export default function SessionStartPage() {
                                 }
                             }}
                         />
-                        <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location</a></h4>
+                        <div style={{marginTop: '10px', marginBottom: '-10px', width: '92%', textAlign: 'right'}}>
+                            <img alt="google" src={require('../../images/google.png')}></img>
+                        </div>
                         {addressError &&
                             <h4 className="error-message">{addressError}</h4>
                         }

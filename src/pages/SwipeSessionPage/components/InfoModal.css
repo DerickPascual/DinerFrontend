@@ -143,7 +143,15 @@
     padding: 10px;
 }
 
+.google-img {
+    margin-right: 20px;
+}
+
 @media screen and (max-width: 600px) {
+    .google-img {
+        margin-right: 0px;
+    }
+
     .info-modal {
         width: 300px;
     }

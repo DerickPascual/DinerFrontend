@@ -5,8 +5,13 @@ import { useState, useEffect } from 'react';
 export default function CardCarousel({ currentIndex, index, restaurant }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-        return (
-            <div>
+    return (
+        <div>
+            {restaurant.photoUrls.length === 0 ?
+                <div style={{ position: 'absolute', width: '100%', textAlign: 'center', top: '30%' }}>
+                    <h2>Restaurant has no photos :(</h2>
+                </div>
+                :
                 <Carousel
                     showThumbs={false}
                     showIndicators={false}
@@ -38,13 +43,14 @@ export default function CardCarousel({ currentIndex, index, restaurant }) {
                         if (index === selectedIndex || index === selectedIndex - 1 || index === selectedIndex + 1) {
                             return (
                                 <div>
-                                    <img src={url} />
+                                    <img alt="restaurant" src={url} />
                                 </div>
                             )
                         }
                     }
                     )}
                 </Carousel>
-            </div>
-        )
+            }
+        </div>
+    )
 };

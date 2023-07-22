@@ -1,5 +1,5 @@
 .start-session-body {
-    background: url('../../images/lidye-unsplash.jpg') no-repeat center center fixed;
+    background: url('../../images/igor-miske.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -16,6 +16,7 @@
 .start-session-box {
     margin-top: 25px;
     background-color: rgba(8, 8, 8, 0.9);
+    backdrop-filter: blur(2px);
     border: solid 2px #161616;
     border-radius: 30px;
     width: fit-content;
@@ -36,10 +37,10 @@
 
 .address-prompt,
 .radius-prompt {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 10px;
     margin-top: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
 }
 
 .address-input {
@@ -60,8 +61,9 @@
 }
 
 .use-location-text {
-    margin-top: 10px;
-    margin-bottom: 0px;
+    margin-top: 5px;
+    color: #a4a4a4;
+    margin-bottom: 15px;
 }
 
 .use-location-anchor {
@@ -75,6 +77,7 @@
 }
 
 .radius-prompt {
+    margin-top: 25px;
     margin-bottom: 5px;
 }
 
@@ -102,8 +105,8 @@
     padding-right: 10px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    font-weight: bold;
     text-align: right;
+    font-weight: bold;
 }
 
 .radius-input:focus {
@@ -128,6 +131,7 @@
 
 .divider {
     margin: 25px;
+    margin-bottom: 15px;
     width: 100%;
     background-color: rgb(157, 157, 157);
     height: 2px;
@@ -139,20 +143,20 @@
     width: fit-content;
     max-width: 250px;
     margin: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .start-button {
     all: unset;
     margin: 10px;
     padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     background: -webkit-linear-gradient(#FD297B,  #FF655B);
     text-align: center;
     width: fit-content;
     border-radius: 30px;
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     font-weight: bold;
     color: white;
 }

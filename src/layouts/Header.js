@@ -1,7 +1,7 @@
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Header() {
+export default function Header({ withGradient }) {
     const navigate = useNavigate();
 
     const handleDinderClick = () => {
@@ -9,8 +9,13 @@ export default function Header() {
     }
 
     return (
-        <div className="header">
-            <h1 className='dinder'><a onClick={handleDinderClick}>Dinder</a></h1>
+        <div
+            className="header"
+            style={{
+                background: withGradient && '-webkit-linear-gradient(rgba(0, 0, 0, 0.95),  rgba(255, 255, 255, 0))'
+
+            }}>
+            <h1 className='diner'><a onClick={handleDinderClick}>Diner</a></h1>
         </div>
     )
 };

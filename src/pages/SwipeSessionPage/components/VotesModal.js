@@ -13,6 +13,7 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
     return (
         <div className="modal-container">
             <ReactModal
+                ariaHideApp={false}
                 isOpen={isOpen}
                 onRequestClose={() => setIsOpen(false)}
                 className="modal"
@@ -43,16 +44,20 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
                         <p className="empty-votes-message">Start swiping to see votes!</p>
                     </div>
                 }
+                {/* In order to get restaurants listed in reverse order */}
                 {likesAndDislikes.slice().reverse().map((restaurantLikesAndDislikes, index) => {
 
                     if (restaurants.length - 1 - lowestIndexSwiped.current < index) {
-                        return;
+                        return (
+                            <div key={index}>
+                            </div>
+                        );
                     }
 
                     const restaurant = restaurants.slice().reverse()[index];
 
                     return (
-                        <div>
+                        <div key={index}>
                             <div className="restaurant-container">
                                 <div className="restaurant-top-container">
                                     <div className="restaurant-name-container">

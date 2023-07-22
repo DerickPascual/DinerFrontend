@@ -10,16 +10,15 @@ import VotesModal from './components/VotesModal';
 import Footer from './components/Footer';
 import Buttons from './components/Buttons';
 import InfoModal from './components/InfoModal';
-import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CardCarousel from './components/CardCarousel';
 import LinearProgress from '@mui/material/LinearProgress';
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(-1);
-    const currentIndexRef = useRef(-1);
-    const lowestIndexSwiped = useRef(-1);
+    const [currentIndex, setCurrentIndex] = useState(-100);
+    const currentIndexRef = useRef(-100);
+    const lowestIndexSwiped = useRef(-100);
     const [roomId, setRoomId, latitude, setLatitude, longitude, setLongitude, radius, setRadius] = useOutletContext();
     const [socket, setSocket] = useState();
     const [matchesIsOpen, setMatchesIsOpen] = useState(false);
@@ -29,7 +28,8 @@ export default function SwipeSessionPage() {
     const [restaurantMatch, setRestaurantMatch] = useState({});
 
     const [initialLoad, setInitialLoad] = useState(true);
-    const [showFindingRestaurantsMsg, setShowFindingRestaurantsMsg] = useState(false);
+    // set to false if loading 40 restaurants
+    const [showFindingRestaurantsMsg, setShowFindingRestaurantsMsg] = useState(true);
     const [restaurantLoadProgress, setRestaurantLoadProgress] = useState(0);
 
     const restaurantRefs = useMemo(
@@ -54,11 +54,12 @@ export default function SwipeSessionPage() {
         /*Comment this out to edit loading screens */
         newSocket.on("restaurants", (restaurants) => {
             setRestaurants(restaurants);
-            
+
             setCurrentIndex(restaurants.length - 1);
             currentIndexRef.current = restaurants.length - 1;
             lowestIndexSwiped.current = restaurants.length;
             setRestaurantLoadProgress(100);
+            setShowFindingRestaurantsMsg(false);
             setInitialLoad(false);
         });
 
@@ -96,12 +97,14 @@ export default function SwipeSessionPage() {
 
     useEffect(() => {
         let timer;
-        if (showFindingRestaurantsMsg && restaurantLoadProgress < 85) {
+        if (showFindingRestaurantsMsg && restaurantLoadProgress < 80) {
             timer = setInterval(() => {
                 setRestaurantLoadProgress((oldProgress) => {
-                    return oldProgress + 7.5 + Math.random() * 7.5;
+                    // set to 7.5, 7.5 in case loading 40 restaurants
+                    return oldProgress + 15 + Math.random() * 5;
                 })
-            }, 500);
+            }, 200);
+            // set interval to 500 in case loading 40 restaurants
         }
 
         return () => clearInterval(timer);
@@ -117,12 +120,9 @@ export default function SwipeSessionPage() {
         }
     }
 
-    /*useEffect(() => {
-        if (currentIndex === 10 && restaurants.length === 20) {
-            // emit to socket asking for more restaurants
-            socket.emit("get_additional_restaurants");
-        }
-    }, [currentIndex]);*/
+    useEffect(() => {
+        console.log(currentIndex);
+    }, [currentIndex]);
 
     const swiped = (direction, index) => {
         // ensures swipe only happen once, since for some reason swipe handler can be called 10+ times on a swipe
@@ -150,7 +150,7 @@ export default function SwipeSessionPage() {
 
     return (
         <div className="swipe-session-body">
-            <Header />
+            <Header withGradient={true} />
             <MatchModal isOpen={matchModalOpen} setIsOpen={setMatchModalOpen} restaurantMatch={restaurantMatch} />
             <div className="content-container">
                 <div className="card-container">
@@ -167,7 +167,7 @@ export default function SwipeSessionPage() {
                                     {showFindingRestaurantsMsg ?
                                         <div>
                                             <h2>Finding restaurants...</h2>
-                                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                                 <LinearProgress
                                                     style={{
                                                         width: '90%',
@@ -180,11 +180,24 @@ export default function SwipeSessionPage() {
                                             </div>
                                         </div>
                                         :
+                                        // this whole logic is useful in the case that 40 restaurants are loaded instead of 20
                                         <h2>Preparing your swipe room...</h2>
                                     }
                                 </div>
                             </div>
                         </TinderCard>
+                    }
+                    {(currentIndex === -1 || currentIndex === 0) &&
+                         <div 
+                            style={{
+                                width: '300px', height: '500px', padding: '20px', textAlign: 'center', position: 'relative'
+                            }}
+                         >
+                                <div style={{ position: 'absolute', top: '30%'}}>
+                                    <h2>Look's like you've reached the end. Time to dine!</h2>
+                                </div>
+                            </div>
+
                     }
                     {restaurants.map((restaurant, index) => {
                         return (
@@ -234,6 +247,7 @@ export default function SwipeSessionPage() {
                                             <button className="view-more-button pressable" onTouchStart={() => { }} onClick={() => setInfoModalOpen(true)}>
                                                 View more
                                             </button>
+                                            <img alt="Google" src={require('../../images/google.png')} className="google-img" />
                                         </div>
                                     </div> :
                                     (index < currentIndex) &&
