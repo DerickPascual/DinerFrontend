@@ -189,9 +189,7 @@ export default function SwipeSessionPage() {
                     }
                     {(currentIndex === -1 || currentIndex === 0) &&
                          <div 
-                            style={{
-                                width: '300px', height: '500px', padding: '20px', textAlign: 'center', position: 'relative'
-                            }}
+                            className="end-text-box"
                          >
                                 <div style={{ position: 'absolute', top: '30%'}}>
                                     <h2>Look's like you've reached the end. Time to dine!</h2>
@@ -244,10 +242,13 @@ export default function SwipeSessionPage() {
                                             </div>
                                         </div>
                                         <div className="card-view-more-container">
+                                            <div style={{ width: '59px' }}>
+
+                                            </div>
                                             <button className="view-more-button pressable" onTouchStart={() => { }} onClick={() => setInfoModalOpen(true)}>
                                                 View more
                                             </button>
-                                            <img alt="Google" src={require('../../images/google.png')} className="google-img" />
+                                            <img alt="Google" src={require('../../images/google.png')} className="card-google-img" />
                                         </div>
                                     </div> :
                                     (index < currentIndex) &&

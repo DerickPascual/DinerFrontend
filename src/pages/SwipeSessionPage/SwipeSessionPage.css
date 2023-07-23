@@ -145,11 +145,17 @@
     opacity: 0.5;
 }
 
-.google-img {
+.card-google-img {
     height: fit-content;
 }
 
-.view-more-text {}
+.end-text-box {
+    width: 300px;
+    height: 500px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
 
 @media screen and (max-height: 850px) {
     .card-container {
@@ -167,7 +173,8 @@
 
 @media screen and (max-height: 750px) {
     .card-box,
-    .card-container {
+    .card-container,
+    .end-text-box {
         height: 450px;
     }
 
@@ -187,7 +194,8 @@
 @media screen and (max-height: 700px) {
 
     .card-box,
-    .card-container {
+    .card-container,
+    .end-text-box {
         height: 400px;
     }
 
