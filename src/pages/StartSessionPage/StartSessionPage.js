@@ -128,7 +128,7 @@ export default function SessionStartPage() {
                         <h3 className="address-prompt">Enter your address</h3>
                         <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location</a></h4>
                         <GooglePlacesAutocomplete
-                            apiKey={process.env.REACT_APP_MAPS_API_KEY}
+                            apiKey="AIzaSyC3tBK7HkBR-EwY46-8pe64osLYfx1FG9Q"
                             selectProps={{
                                 value: address || '',
                                 onChange: setAddress,
