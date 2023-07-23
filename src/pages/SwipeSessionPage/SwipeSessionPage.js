@@ -47,7 +47,7 @@ export default function SwipeSessionPage() {
             navigate('/home');
         }
 
-        const newSocket = io('https://dinerbackend-3497fdac4949.herokuapp.com/');
+        const newSocket = io('https://dinerbackend-3497fdac4949.herokuapp.com');
 
         setSocket(newSocket);
 
