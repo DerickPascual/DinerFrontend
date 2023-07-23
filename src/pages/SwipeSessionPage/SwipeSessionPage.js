@@ -13,6 +13,7 @@ import InfoModal from './components/InfoModal';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CardCarousel from './components/CardCarousel';
 import LinearProgress from '@mui/material/LinearProgress';
+import { useNavigate } from 'react-router-dom';
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -39,7 +40,13 @@ export default function SwipeSessionPage() {
     const canSwipe = currentIndex >= 0;
     const canGoBack = currentIndex < restaurants.length - 1;
 
+    const navigate = useNavigate();
+
     useEffect(() => {
+        if (!roomId) {
+            navigate('/home');
+        }
+
         const newSocket = io('http://localhost:3500');
 
         setSocket(newSocket);

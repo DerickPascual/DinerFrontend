@@ -13,6 +13,7 @@ export default function SessionStartPage() {
     const [invalidRadius, setInvalidRadius] = useState(false);
     const [radiusError, setRadiusError] = useState();
     const [roomId, setRoomId, latitude, setLatitude, longitude, setLongitude, radius, setRadius] = useOutletContext();
+    const [disableButton, setDisableButton] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +21,6 @@ export default function SessionStartPage() {
         setLatitude('');
         setLongitude('');
     }, [])
-
 
     useEffect(() => {
         if (latitude && longitude) {
@@ -126,7 +126,7 @@ export default function SessionStartPage() {
                 <div className="start-session-box">
                     <div className="address-form-container">
                         <h3 className="address-prompt">Enter your address</h3>
-                        <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location</a></h4>
+                        <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location.</a> This may take a second - the address box will turn green when your location is found.</h4>
                         <GooglePlacesAutocomplete
                             apiKey="AIzaSyC3tBK7HkBR-EwY46-8pe64osLYfx1FG9Q"
                             selectProps={{
@@ -205,7 +205,10 @@ export default function SessionStartPage() {
                         }
                     </div>
                     <hr className="divider" />
-                    <button className="start-button" onClick={handleStartClick}>Start your session</button>
+                    <button 
+                        className="start-button" 
+                        onClick={handleStartClick} 
+                        >Start your session</button>
                 </div>
             </div>
         </div>
