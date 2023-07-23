@@ -112,7 +112,7 @@ export default function SessionStartPage() {
             return;
         }
 
-        const response = await axios.get('http://localhost:3500/api/new-room-id');
+        const response = await axios.get('https://dinerbackend-3497fdac4949.herokuapp.com/api/new-room-id');
 
         setRoomId(response.data.roomId);
 

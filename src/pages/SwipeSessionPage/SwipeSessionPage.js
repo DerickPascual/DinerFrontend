@@ -47,7 +47,7 @@ export default function SwipeSessionPage() {
             navigate('/home');
         }
 
-        const newSocket = io('http://localhost:3500');
+        const newSocket = io('https://dinerbackend-3497fdac4949.herokuapp.com/');
 
         setSocket(newSocket);
 
@@ -126,10 +126,6 @@ export default function SwipeSessionPage() {
             lowestIndexSwiped.current = val + 1;
         }
     }
-
-    useEffect(() => {
-        console.log(currentIndex);
-    }, [currentIndex]);
 
     const swiped = (direction, index) => {
         // ensures swipe only happen once, since for some reason swipe handler can be called 10+ times on a swipe

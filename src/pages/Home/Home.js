@@ -16,7 +16,7 @@ export default function Home() {
             return;
         }
 
-        const response = axios.post('http://localhost:3500/api/check-room-id', {
+        const response = axios.post('https://dinerbackend-3497fdac4949.herokuapp.com/api/check-room-id', {
             roomId: pin
         }).then(() => {
             setRoomId(pin);
