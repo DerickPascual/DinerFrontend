@@ -27,7 +27,7 @@ export default function VotesModal({ isOpen, setIsOpen, likesAndDislikes, lowest
                         backgroundColor: ('#242424'),
                         borderRadius: '15px',
                         height: 'fit-content',
-                        maxHeight: '80vh',
+                        maxHeight: '85%',
                         position: "absolute",
                         top: '50%',
                         left: '50%',

@@ -164,7 +164,7 @@
 
 @media screen and (max-height: 850px) {
     .card-container {
-        margin-top: 3vh;
+        margin-top: 10px;
     }
 
     .view-more-button:hover {
@@ -180,6 +180,7 @@
     .card-box,
     .card-container,
     .end-text-box {
+        margin-top: 0px;
         height: 450px;
     }
 
@@ -201,15 +202,12 @@
     .card-box,
     .card-container,
     .end-text-box {
-        height: 400px;
+        margin-top: 0px;
+        height: 430px;
     }
 
     .card-image-container {
         height: 60%;
-    }
-
-    .carousel img {
-        height: 240px !important;
     }
 
     .card-description-container {

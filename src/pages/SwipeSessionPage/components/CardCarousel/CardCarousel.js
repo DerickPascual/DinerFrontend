@@ -10,6 +10,7 @@ export default function CardCarousel({ currentIndex, index, restaurant }) {
         document.querySelectorAll('.carousel-img-html-attribution a')
             .forEach((anchor) => {
                 anchor.setAttribute('target', '_blank');
+                anchor.setAttribute('className', 'pressable');
             })
     }, [selectedIndex]);
     return (
