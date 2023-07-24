@@ -128,7 +128,7 @@ export default function SessionStartPage() {
                         <h3 className="address-prompt">Enter your address</h3>
                         <h4 className="use-location-text">Or, <a className="use-location-anchor" onClick={handleUseLocationClick}>use your current location.</a> This may take a second - the address box will turn green when your location is found.</h4>
                         <GooglePlacesAutocomplete
-                            apiKey="AIzaSyC3tBK7HkBR-EwY46-8pe64osLYfx1FG9Q"
+                            apiKey="AIzaSyCOGEi2oskqtwQv04VfommrHVzEUPHd5Bo"
                             selectProps={{
                                 value: address || '',
                                 onChange: setAddress,
