@@ -47,7 +47,7 @@ export default function SwipeSessionPage() {
             navigate('/home');
         }
 
-        const newSocket = io('http://165.232.151.206');
+        const newSocket = io('https://api.letsdiner.com');
 
         setSocket(newSocket);
 

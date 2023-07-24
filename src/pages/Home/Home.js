@@ -16,7 +16,7 @@ export default function Home() {
             return;
         }
 
-        const response = axios.post('http://165.232.151.206/api/check-room-id', {
+        const response = axios.post('https://api.letsdiner.com/api/check-room-id', {
             roomId: pin
         }).then(() => {
             setRoomId(pin);
