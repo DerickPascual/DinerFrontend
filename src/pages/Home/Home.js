@@ -1,7 +1,7 @@
 import './Home.css';
 import Header from '../../layouts/Header.js';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Home() {
