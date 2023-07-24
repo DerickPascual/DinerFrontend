@@ -43,7 +43,7 @@ export default function CardCarousel({ currentIndex, index, restaurant }) {
                         if (index === selectedIndex || index === selectedIndex - 1 || index === selectedIndex + 1) {
                             return (
                                 <div>
-                                    <img alt="restaurant" src={url} />
+                                    <img alt="restaurant" src={url} referrerPolicy="no-referrer"/>
                                 </div>
                             )
                         }
