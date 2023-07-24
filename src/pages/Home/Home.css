@@ -8,7 +8,7 @@
 }
 
 .hero-container {
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
 }
 
 .home-body {
@@ -32,7 +32,7 @@
 }
 
 .hero-proposal {
-    font-size: 4rem;
+    font-size: 3.25rem;
 }
 
 .hero-question {
@@ -52,9 +52,7 @@
 
 .join-start-box {
     width: fit-content;
-    border: solid 2px #161616;
-    background-color: rgba(5, 5, 5, 1);
-    backdrop-filter: blur(2px);
+    border: solid 2px #363636;
     border-radius: 30px;
     padding: 0px;
 }
@@ -134,7 +132,7 @@
 
 @media screen and (max-width: 1010px) {
     .hero-proposal {
-        font-size: 6vw;
+        font-size: 5vw;
     }
 
     .hero-question {

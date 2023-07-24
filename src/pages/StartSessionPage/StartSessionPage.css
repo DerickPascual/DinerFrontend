@@ -13,9 +13,7 @@
 
 .start-session-box {
     margin-top: 25px;
-    background-color: rgba(5, 5, 5, 1);
-    backdrop-filter: blur(2px);
-    border: solid 2px #161616;
+    border: solid 2px #363636;
     border-radius: 30px;
     width: 320px;
     padding: 12px;
