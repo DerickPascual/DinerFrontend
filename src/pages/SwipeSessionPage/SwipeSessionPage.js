@@ -47,7 +47,7 @@ export default function SwipeSessionPage() {
             navigate('/home');
         }
 
-        const newSocket = io('http://localhost:3500');
+        const newSocket = io('http://165.232.151.206');
 
         setSocket(newSocket);
 
