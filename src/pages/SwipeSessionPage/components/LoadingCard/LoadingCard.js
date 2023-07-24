@@ -7,13 +7,13 @@ export default function LoadingCard() {
 
     useEffect(() => {
         let timer;
-        if (restaurantLoadProgress < 80) {
+        if (restaurantLoadProgress < 92) {
             timer = setInterval(() => {
                 setRestaurantLoadProgress((oldProgress) => {
                     // set to 7.5, 7.5 in case loading 40 restaurants
-                    return oldProgress + 15 + Math.random() * 5;
+                    return oldProgress + 3 + Math.random() * 5;
                 })
-            }, 200);
+            }, 500);
             // set interval to 500 in case loading 40 restaurants
         }
 
