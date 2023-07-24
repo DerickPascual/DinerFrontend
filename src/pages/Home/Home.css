@@ -12,7 +12,6 @@
 }
 
 .home-body {
-    background: url('../../images/igor-miske.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -54,7 +53,7 @@
 .join-start-box {
     width: fit-content;
     border: solid 2px #161616;
-    background-color: rgba(8, 8, 8, 0.9);
+    background-color: rgba(5, 5, 5, 1);
     backdrop-filter: blur(2px);
     border-radius: 30px;
     padding: 0px;
@@ -120,7 +119,7 @@
 }
 
 .start-prompt {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-top: -20px;
     font-size: 1.3rem;
 }

@@ -111,7 +111,7 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                 })}
                             </div>
                             <div style={{marginTop: '15px', textAlign: 'right'}}>
-                                <img alt="Google" src={require('../../../images/google.png')} className="google-img"/>
+                                <img alt="Google" src={require('../../../../images/google.png')} className="google-img"/>
                             </div>
                         </div>
                     </ReactModal>

@@ -15,7 +15,7 @@ export default function Header({ withGradient }) {
                 background: withGradient && '-webkit-linear-gradient(rgba(0, 0, 0, 0.95),  rgba(255, 255, 255, 0))'
 
             }}>
-            <h1 className='diner'><a onClick={handleDinderClick}>Diner</a></h1>
+            <h1 className='diner'><a onClick={handleDinderClick}>Diner 🥂</a></h1>
         </div>
     )
 };

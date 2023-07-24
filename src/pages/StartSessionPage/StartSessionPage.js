@@ -112,7 +112,7 @@ export default function SessionStartPage() {
             return;
         }
 
-        const response = await axios.get('https://api.letsdiner.com/api/new-room-id');
+        const response = await axios.get(process.env.NODE_ENV === 'development' ? 'http://localhost:3500/api/new-room-id' : 'https://api.letsdiner.com/api/new-room-id');
 
         setRoomId(response.data.roomId);
 

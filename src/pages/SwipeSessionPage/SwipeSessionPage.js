@@ -5,15 +5,27 @@ import Header from '../../layouts/Header';
 import TinderCard from 'react-tinder-card';
 import { Rating } from 'react-simple-star-rating';
 import io from 'socket.io-client';
-import MatchModal from './components/MatchModal';
-import VotesModal from './components/VotesModal';
-import Footer from './components/Footer';
-import Buttons from './components/Buttons';
-import InfoModal from './components/InfoModal';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import CardCarousel from './components/CardCarousel';
-import LinearProgress from '@mui/material/LinearProgress';
+import MatchModal from './components/MatchModal/MatchModal';
+import VotesModal from './components/VotesModal/VotesModal';
+import Footer from './components/Footer/Footer';
+import Buttons from './components/Buttons/Buttons';
+import InfoModal from './components/InfoModal/InfoModal';
+import LoadingCard from './components/LoadingCard/LoadingCard';
+import CardCarousel from './components/CardCarousel/CardCarousel';
 import { useNavigate } from 'react-router-dom';
+/* global google */
+
+const getPlaceDetails = (service, request) => {
+    return new Promise((resolve, reject) => {
+        service.getDetails(request, (results, status)=> {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                resolve(results);
+            } else {
+                reject(status);
+            }
+        })
+    })
+}
 
 export default function SwipeSessionPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -29,9 +41,6 @@ export default function SwipeSessionPage() {
     const [restaurantMatch, setRestaurantMatch] = useState({});
 
     const [initialLoad, setInitialLoad] = useState(true);
-    // set to false if loading 40 restaurants
-    const [showFindingRestaurantsMsg, setShowFindingRestaurantsMsg] = useState(true);
-    const [restaurantLoadProgress, setRestaurantLoadProgress] = useState(0);
 
     const restaurantRefs = useMemo(
         () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
@@ -47,28 +56,88 @@ export default function SwipeSessionPage() {
             navigate('/home');
         }
 
-        const newSocket = io('https://api.letsdiner.com');
+        const newSocket = io(process.env.NODE_ENV === 'development' ? 'http://localhost:3500' : 'https://api.letsdiner.com');
 
         setSocket(newSocket);
 
         // Comment this out to edit loading screens
         newSocket.emit("join_room", roomId, latitude, longitude, radius);
 
-        newSocket.on("initial_load_finished", () => {
-            setShowFindingRestaurantsMsg(true);
-        });
-
         /*Comment this out to edit loading screens */
-        newSocket.on("restaurants", (restaurants) => {
-            setRestaurants(restaurants);
+        newSocket.on("new_room_restaurants", async (restaurants) => {
+            // retrieve restaurant details
+            const map = new google.maps.Map(document.createElement('div'));
 
+            const service = new google.maps.places.PlacesService(map);
+
+            for (const restaurant of restaurants) {
+                const request = {
+                    placeId: restaurant.placeId,
+                    fields: [
+                        'formatted_address',
+                        'photo',
+                        'url',
+                        'opening_hours',
+                        'reviews'
+                    ]
+                }
+
+                const restaurantDetails = await getPlaceDetails(service, request);
+                restaurant.address = restaurantDetails.formatted_address;
+                
+                if (restaurantDetails.formatted_address) {
+                    restaurant.address = restaurantDetails.formatted_address;
+                }
+        
+                if (restaurantDetails.url) {
+                    restaurant.url = restaurantDetails.url;
+                }
+        
+                if (restaurantDetails.opening_hours && restaurantDetails.opening_hours.weekday_text) {
+                    restaurant.hours = restaurantDetails.opening_hours.weekday_text;
+                }
+
+                if (restaurantDetails.reviews) {
+                    for (const review of restaurantDetails.reviews) {
+                        restaurant.reviews.push({
+                            url: review.author_url,
+                            profilePhoto: review.profile_photo_url,
+                            rating: review.rating,
+                            relativeTimeDescription: review.relative_time_description,
+                            text: review.text
+                        })
+                    }
+                }
+
+                if (restaurantDetails.photos) {
+                    let photoCount = 0;
+                    for (const photo of restaurantDetails.photos) {
+                        if (photoCount >= 5) break;
+        
+                        restaurant.photos.push({ url: photo.getUrl(), htmlAttributions: photo.html_attributions ? photo.html_attributions : []});
+                        photoCount++;
+                    }
+                }
+
+                console.log(restaurant.photos);
+            }
+
+            newSocket.emit("new_room_restaurants_with_details", (restaurants));
+
+            setRestaurants(restaurants);
             setCurrentIndex(restaurants.length - 1);
             currentIndexRef.current = restaurants.length - 1;
             lowestIndexSwiped.current = restaurants.length;
-            setRestaurantLoadProgress(100);
-            setShowFindingRestaurantsMsg(false);
             setInitialLoad(false);
         });
+
+        newSocket.on("existing_room_restaurants", (restaurants) => {
+            setRestaurants(restaurants);
+            setCurrentIndex(restaurants.length - 1);
+            currentIndexRef.current = restaurants.length - 1;
+            lowestIndexSwiped.current = restaurants.length;
+            setInitialLoad(false);
+        })
 
         newSocket.on("likes_and_dislikes", (updatedLikesAndDislikes) => {
             setLikesAndDislikes(updatedLikesAndDislikes);
@@ -79,44 +148,10 @@ export default function SwipeSessionPage() {
             setRestaurantMatch(restaurant);
         });
 
-        newSocket.on("additional_restaurants", (additionalRestaurants) => {
-
-            setRestaurants((currentRestaurants) => {
-                console.log(currentRestaurants);
-                console.log(additionalRestaurants);
-
-                const newRestaurantList = [...additionalRestaurants, ...currentRestaurants];
-
-                console.log(`New restaurant List ${newRestaurantList}`);
-
-                return newRestaurantList;
-            });
-
-            setCurrentIndex((currentIndex) => currentIndex + additionalRestaurants.length);
-            currentIndexRef.current += additionalRestaurants.length;
-            console.log(currentIndexRef.current);
-        });
-
         return () => {
             newSocket.disconnect();
         };
     }, []);
-
-    useEffect(() => {
-        let timer;
-        if (showFindingRestaurantsMsg && restaurantLoadProgress < 80) {
-            timer = setInterval(() => {
-                setRestaurantLoadProgress((oldProgress) => {
-                    // set to 7.5, 7.5 in case loading 40 restaurants
-                    return oldProgress + 15 + Math.random() * 5;
-                })
-            }, 200);
-            // set interval to 500 in case loading 40 restaurants
-        }
-
-        return () => clearInterval(timer);
-    }, [showFindingRestaurantsMsg, restaurantLoadProgress])
-
 
     const updateCurrentIndex = (val) => {
         setCurrentIndex(val)
@@ -158,38 +193,9 @@ export default function SwipeSessionPage() {
             <div className="content-container">
                 <div className="card-container">
                     {initialLoad &&
-                        <TinderCard
-                            className='card'
-                            preventSwipe={['up', 'down', 'left', 'right']}
-                        >
-                            <div
-                                className="card-box"
-                                style={{ boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 10px' }}
-                            >
-                                <div style={{ position: 'absolute', top: '50%', textAlign: 'center', width: '100%' }}>
-                                    {showFindingRestaurantsMsg ?
-                                        <div>
-                                            <h2>Finding restaurants...</h2>
-                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                <LinearProgress
-                                                    style={{
-                                                        width: '90%',
-                                                        marginTop: '20px',
-                                                        borderRadius: '30px'
-                                                    }}
-                                                    value={restaurantLoadProgress}
-                                                    variant={'determinate'}
-                                                />
-                                            </div>
-                                        </div>
-                                        :
-                                        // this whole logic is useful in the case that 40 restaurants are loaded instead of 20
-                                        <h2>Preparing your swipe room...</h2>
-                                    }
-                                </div>
-                            </div>
-                        </TinderCard>
+                        <LoadingCard />
                     }
+                    {/* When user reaches end */}
                     {(currentIndex === -1 || currentIndex === 0) &&
                          <div 
                             className="end-text-box"
@@ -254,6 +260,7 @@ export default function SwipeSessionPage() {
                                             <img alt="Google" src={require('../../images/google.png')} className="card-google-img" />
                                         </div>
                                     </div> :
+                                    // for lazy loading
                                     (index < currentIndex) &&
                                     <div className="card-box">
 

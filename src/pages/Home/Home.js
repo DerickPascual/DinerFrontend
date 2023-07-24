@@ -16,10 +16,12 @@ export default function Home() {
             return;
         }
 
-        const response = axios.post('https://api.letsdiner.com/api/check-room-id', {
-            roomId: pin
+        const trimmedPin = pin.trim();
+
+        const response = axios.post(process.env.NODE_ENV === 'development' ? 'http://localhost:3500/api/check-room-id' : 'https://api.letsdiner.com/api/check-room-id', {
+            roomId: trimmedPin
         }).then(() => {
-            setRoomId(pin);
+            setRoomId(trimmedPin);
             navigate('/swipe-session');
         }).catch(() => {
             setError("Sorry! We don't recognize that PIN. Please try again.");
@@ -40,14 +42,14 @@ export default function Home() {
             <div className="home-body-overlay">
             <Header withGradient={true}/>
                 <div className="hero-container">
-                    <h2 className="hero-proposal">Swipe, Savor, Repeat.</h2>
+                    <h2 className="hero-proposal">Swipe ➡️, Savor 😋, Repeat 🔁.</h2>
                     {/*<h2 className="hero-question">"Where do <i className="hero-italic">you</i> want to eat?"</h2>*/}
                 </div>
                 <div className="join-start-container">
                     <div className="join-start-box">
                         <div className="join-container">
                             <div className="join-box">
-                                <h3 className="join-prompt">Join a session</h3>
+                                <h3 className="join-prompt">Join a session:</h3>
                                 <input
                                     className="join-input"
                                     placeholder="Session PIN"
@@ -69,7 +71,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="start-container">
-                            <h3 className='start-prompt'>Or, start a session:</h3>
+                            <h3 className='start-prompt'>Or, create one:</h3>
                             <button className="home-button" onClick={handleStartClick}>Start a session</button>
                         </div>
 
