@@ -10,6 +10,10 @@ export default function Home() {
     const [error, setError] = useState(false);
     const [roomId, setRoomId] = useOutletContext();
 
+    useEffect(() => {
+        setRoomId('');
+    },[])
+
     const handleJoinClick = async () => {
         if (!pin) {
             setError("Sorry! We don't recognize that PIN. Please try again.");

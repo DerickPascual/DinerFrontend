@@ -20,6 +20,7 @@ export default function SessionStartPage() {
         setRadius(5);
         setLatitude('');
         setLongitude('');
+        setRoomId('');
     }, [])
 
     useEffect(() => {
