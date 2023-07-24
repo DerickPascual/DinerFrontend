@@ -32,7 +32,7 @@ export default function InfoModal({ isOpen, setIsOpen, restaurant }) {
                                 backgroundColor: ('#242424'),
                                 borderRadius: '15px',
                                 height: 'fit-content',
-                                maxHeight: '80vh',
+                                maxHeight: '82%',
                                 position: "absolute",
                                 top: '50%',
                                 left: '50%',
