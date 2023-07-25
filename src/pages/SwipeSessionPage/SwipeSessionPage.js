@@ -218,7 +218,7 @@ export default function SwipeSessionPage() {
                             className="end-text-box"
                          >
                                 <div style={{ position: 'absolute', top: '30%'}}>
-                                    <h2>No more cards left. Time to dine 🍽️!</h2>
+                                    <h2>No cards left. Time to eat 🍽️!</h2>
                                 </div>
                             </div>
 
