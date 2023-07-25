@@ -37,10 +37,10 @@ export default function PrivacyPolicyTOS() {
                     <p>When you start a swipe session, we may request access to your device's location or prompt you to enter your location. Your location data will be used solely for the purpose of finding nearby restaurants and other related places using the Google Places API. We do not collect, store, or share your location data beyond the immediate query to the API.</p>
                     <br></br>
                     <h3>2. Use of Google Places API:</h3>
-                    <p>To provide you with information about nearby restaurants, our website uses the Google Places API. When you enter your location and start a swipe session, the location will be sent to Google's servers to retrieve relevant restaurant data. By reference, this means that by using our website, you are also bound by the <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a> 🔒.</p>
+                    <p>To provide you with information about nearby restaurants, our website uses the Google Places API. When you grant us access to your location or enter your location then start a swipe session, the location will be sent to Google's servers to retrieve relevant restaurant data. By reference, this means that by using our website, you are also bound by the <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a> 🔒.</p>
                     <br></br>
                     <h3>3. Data Storage</h3>
-                    <p>When a user starts a swipe session, Diner temporarily stores the user-inputted location to perform a Google Places API query to find nearby restaurants. Once this query is completed, the location data is not retained by our servers or stored in any external database or data storage facility. </p>
+                    <p>When a user starts a swipe session, Diner temporarily stores the location provided by the user to perform a Google Places API query to find nearby restaurants. Once this query is completed, the location data is not retained by our servers or stored in any external database or data storage facility. </p>
                     <br></br>
                     <h3>4. Information Sharing</h3>
                     <p>We do not share your location data with any third parties, except for transmitting it to Google's servers for the sole purpose of querying the Google Places API. We do not sell, rent, or lease your personal information to any other entity.</p>
