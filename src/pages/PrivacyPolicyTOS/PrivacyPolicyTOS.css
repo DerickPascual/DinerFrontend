@@ -1,12 +1,19 @@
 .privacy-policy-body {
-    overflow: scroll !important;
     overflow-y: scroll !important;
     height: 100vh;
 }
 
 .text-container {
+    display: flex;
+    justify-content: center;
+}
+
+.text-box {
+    border: solid 2px #363636;
+    border-radius: 30px;
     padding: 30px;
-    padding-top: 0px;
+    width: 80vw;
+    margin-bottom: 40px;
 }
 
 .text-container h2 {
@@ -19,6 +26,13 @@
 
 .text-container p {
     color: #bbbbbb;
+}
+
+.text-container hr {
+    height: 2px;
+    background-color: #363636;
+    border: none;
+    border-radius: 5px;
 }
 
 .text-container a {

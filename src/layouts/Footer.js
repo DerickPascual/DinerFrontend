@@ -10,7 +10,7 @@ export default function Footer() {
 
     return (
         <div className="footer-container">
-            <h4><a onClick={privacyTermsHandler}>Privacy Policy and Terms of Service</a></h4>
+            <h4 style={{width: '100%'}}><a onClick={privacyTermsHandler}>Privacy Policy and Terms of Service</a></h4>
         </div>
     )
 }
