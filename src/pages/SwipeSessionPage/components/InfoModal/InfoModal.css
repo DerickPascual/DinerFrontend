@@ -141,6 +141,8 @@
 
 .review-right-side-container {
     padding: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .google-img {
@@ -154,6 +156,10 @@
 
     .info-modal {
         width: 280px;
+    }
+
+    .info-modal-single-review-container {
+        width: 240px;
     }
 
     .info-modal-single-review-container {
