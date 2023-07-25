@@ -162,3 +162,10 @@
     cursor: pointer;
     background: -webkit-linear-gradient(#ff5496,  #fd8880);
 }
+
+@media screen and (max-width: 600px) {
+    .start-session-box {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

@@ -138,7 +138,7 @@ export default function SessionStartPage() {
                                 styles: {
                                     container: (provided) => ({
                                         ...provided,
-                                        width: '270px',
+                                        width: '280px',
                                     }),
                                     control: (provided, state) => ({
                                         ...provided,
@@ -160,7 +160,8 @@ export default function SessionStartPage() {
                                     }),
                                     placeholder: (provided) => ({
                                         ...provided,
-                                        fontWeight: 'bold'
+                                        fontWeight: 'bold',
+                                        textAlign: 'left'
                                     })
                                 }
                             }}
