@@ -1,0 +1,26 @@
+.footer-container {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #989898;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-bottom: 0px;
+}
+
+.footer-container a {
+
+}
+
+.footer-container a:hover {
+    cursor: pointer;
+    color: rgb(14, 122, 254);
+}
+
+@media screen and (max-width: 600px) {
+    .footer-container {
+        padding-left: 20px;
+    }
+}

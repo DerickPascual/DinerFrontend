@@ -2,6 +2,7 @@ import './StartSessionPage.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import Header from '../../layouts/Header';
+import Footer from '../../layouts/Footer';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import axios from 'axios';
@@ -212,6 +213,7 @@ export default function SessionStartPage() {
                         >Start your session</button>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 };

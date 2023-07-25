@@ -1,0 +1,26 @@
+.privacy-policy-body {
+    overflow: scroll !important;
+    overflow-y: scroll !important;
+    height: 100vh;
+}
+
+.text-container {
+    padding: 30px;
+    padding-top: 0px;
+}
+
+.text-container h2 {
+    color: #e8e8e8;
+}
+
+.text-container h3 {
+    color: #d9d9d9;
+}
+
+.text-container p {
+    color: #bbbbbb;
+}
+
+.text-container a {
+    color: rgb(14, 122, 254);
+}

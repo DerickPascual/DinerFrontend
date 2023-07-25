@@ -5,6 +5,7 @@ import App from './App';
 import Home from './pages/Home/Home';
 import StartSessionPage from './pages/StartSessionPage/StartSessionPage';
 import SwipeSessionPage from './pages/SwipeSessionPage/SwipeSessionPage';
+import PrivacyPolicyTOS from './pages/PrivacyPolicyTOS/PrivacyPolicyTOS';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'swipe-session',
         element: <SwipeSessionPage />
+      },
+      {
+        path: 'privacy-policy-and-tos',
+        element: <PrivacyPolicyTOS />
       }
     ]
   }
