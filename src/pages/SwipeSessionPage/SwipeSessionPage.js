@@ -41,13 +41,15 @@ export default function SwipeSessionPage() {
     const [restaurantMatch, setRestaurantMatch] = useState({});
 
     const [initialLoad, setInitialLoad] = useState(true);
+    
+    const [queryLimitHit, setQueryLimitHit] = useState(false);
 
     const restaurantRefs = useMemo(
         () => Array(restaurants.length).fill(0).map((i) => React.createRef()), [restaurants]
     )
 
     const canSwipe = currentIndex >= 0;
-    const canGoBack = currentIndex < restaurants.length - 1;
+    const canGoBack = (currentIndex < restaurants.length - 1) && (currentIndex >= -99);
 
     const navigate = useNavigate();
 
@@ -64,7 +66,13 @@ export default function SwipeSessionPage() {
         newSocket.emit("join_room", roomId, latitude, longitude, radius);
 
         /*Comment this out to edit loading screens */
-        newSocket.on("new_room_restaurants", async (restaurants) => {
+        newSocket.on("new_room_restaurants", async (restaurants, queryLimitHit) => {
+            if (queryLimitHit) {
+                setQueryLimitHit(true);
+                setInitialLoad(false);
+                return;
+            }
+
             // retrieve restaurant details
             const map = new google.maps.Map(document.createElement('div'));
 
@@ -195,13 +203,22 @@ export default function SwipeSessionPage() {
                     {initialLoad &&
                         <LoadingCard />
                     }
+                    {queryLimitHit &&
+                        <div
+                            className="end-text-box"
+                        >
+                            <div style={{ position: 'absolute', top: '30%'}}>
+                                <h3>Looks like Diner has hit its API request quota for the day 😢. We've limited requests to control API costs. This means you probably won't be able to swipe until tomorrow at around 12 am PST 😔. Sorry!</h3>
+                            </div>
+                        </div>
+                    }
                     {/* When user reaches end */}
                     {(currentIndex === -1 || currentIndex === 0) &&
                          <div 
                             className="end-text-box"
                          >
                                 <div style={{ position: 'absolute', top: '30%'}}>
-                                    <h2>Look's like you've reached the end. Time to dine!</h2>
+                                    <h2>No more cards left. Time to dine 🍽️!</h2>
                                 </div>
                             </div>
 
