@@ -2,7 +2,7 @@ import './Footer.css';
 
 export default function Footer({ roomId, setMatchesIsOpen }) {
     return (
-        <div className="footer-container">
+        <div className="swipe-footer-container">
             <div className="session-pin-text-container">
                 <h3>Session PIN: <b className="session-pin">{roomId}</b></h3>
             </div>

@@ -52,6 +52,7 @@ export default function PrivacyPolicyTOS() {
                     <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any significant changes by posting the updated policy on our website or within the app.</p>
                 </div>
             </div>
+            <div></div>
         </div>
     )
 }
