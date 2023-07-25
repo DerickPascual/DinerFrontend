@@ -11,7 +11,7 @@ export default function PrivacyPolicyTOS() {
                     <p>Welcome to Diner 🥂! By using Diner, you agree to comply with these terms and conditions.</p>
                     <br></br>
                     <h3>1. Website Purpose</h3>
-                    <p>Diner is a website that allows users to swipe on restaurants using the Google Places API.</p>
+                    <p>Diner is a website that allows users to swipe on restaurants to decide where to eat. Diner uses the Google Places API to gather restaurant information.</p>
                     <br></br>
                     <h3>2. Third Party Services</h3>
                     <p>Diner uses the Google Places API for restaurant information. By using the website, you agree to be bound by <a href="https://policies.google.com/terms?hl=en" target="_blank">Google's Terms of Service</a> 🤝 as well.</p>
